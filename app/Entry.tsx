@@ -1,10 +1,13 @@
+import { AuthLayout } from '@/components/layouts/auth/AuthLayout'
 import { AddEvent } from '@/components/screens/add-event/AddEvent'
+import { Friends } from '@/components/screens/friends/Friends'
 import { Home } from '@/components/screens/home/Home'
 import { Login } from '@/components/screens/login/Login'
 import { MonthCalendar } from '@/components/screens/month-calendar/MonthCalendar'
+import { Profile } from '@/components/screens/profile/Profile'
 import { AuthContext } from '@/hooks/useAuth'
 import { navigationRef } from '@/utils/rootNavigation'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, ParamListBase } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useContext } from 'react'
 import { View } from 'react-native'
@@ -17,6 +20,8 @@ export type RootRoutesParams = {
 	AddEvent: {
 		initialDate: Date
 	}
+	Profile: undefined
+	Friends: undefined
 }
 
 const Stack = createNativeStackNavigator<RootRoutesParams>()
@@ -48,6 +53,18 @@ const protectedRoutes = [
 		component={AddEvent}
 		initialParams={{ initialDate: new Date() }}
 		options={{ headerShown: false }}
+	/>,
+	<Stack.Screen
+		name='Profile'
+		key='Profile'
+		component={Profile}
+		options={{ headerShown: false }}
+	/>,
+	<Stack.Screen
+		name='Friends'
+		key='Friends'
+		component={Friends}
+		options={{ headerShown: false }}
 	/>
 ]
 
@@ -72,7 +89,9 @@ export const Entry = () => {
 							{routes}
 						</Stack.Group>
 					) : (
-						<Stack.Group>{routes}</Stack.Group>
+						<Stack.Group>
+							{routes}
+						</Stack.Group>
 					)}
 				</Stack.Navigator>
 			</NavigationContainer>

@@ -3,6 +3,7 @@ import { ILoginRequest } from '@/api/auth/auth.models'
 import { AuthLayout } from '@/components/layouts/auth/AuthLayout'
 import { AuthContext } from '@/hooks/useAuth'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
+import { UserContext } from '@/hooks/useUser'
 import { useFocusEffect } from '@react-navigation/native'
 import { Button, Input } from '@rneui/themed'
 import { FC, useCallback, useContext, useState } from 'react'
@@ -10,6 +11,7 @@ import { StyleSheet, View } from 'react-native'
 
 export const Login: FC = () => {
 	const auth = useContext(AuthContext)
+	const { setUser } = useContext(UserContext)
 
 	useFocusEffect(
 		useCallback(() => {
@@ -28,13 +30,13 @@ export const Login: FC = () => {
 
 	const login = () => {
 		if (loginForm.username && loginForm.password) {
-			api.auth.login(loginForm).then(async res => {
+			api.auth.login(loginForm).then(res => {
 				auth.login(res.data.session)
 				setLoginForm({
 					username: '',
 					password: ''
 				})
-				nav.navigate('MonthCalendar')
+				nav.navigate('Home')
 			})
 		}
 	}

@@ -24,7 +24,7 @@ export const BottomMenu: FC = () => {
 			id: 2,
 			name: 'home',
 			routeName: 'Home',
-			selectedFor: ['Home', 'AddEvent']
+			selectedFor: ['Home', 'AddEvent', 'Profile']
 		}
 		// {
 		// 	id: 3,

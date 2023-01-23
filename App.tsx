@@ -1,21 +1,21 @@
-import { AuthContextProvider } from '@/hooks/useAuth'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { LogBox } from 'react-native'
-
 import { Entry } from '@/Entry'
+import { AuthContextProvider } from '@/hooks/useAuth'
+import { UserContextProvider } from '@/hooks/useUser'
+import { LogBox } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 LogBox.ignoreLogs([
 	'Non-serializable values were found in the navigation state'
 ])
 
-
 export default function App() {
 	return (
-		<AuthContextProvider>
-			<SafeAreaProvider>
-				<Entry />
-			</SafeAreaProvider>
-		</AuthContextProvider>
+		<UserContextProvider>
+			<AuthContextProvider>
+				<SafeAreaProvider>
+					<Entry />
+				</SafeAreaProvider>
+			</AuthContextProvider>
+		</UserContextProvider>
 	)
 }
-

@@ -1,5 +1,14 @@
+import api from '@/api'
+import { UserContext } from '@/hooks/useUser'
 import { deleteKey, get, save } from '@/utils/secure-store'
-import { ReactNode, createContext, useEffect, useMemo, useState } from 'react'
+import {
+	ReactNode,
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useState
+} from 'react'
 
 interface IInitialContext {
 	isAuth: boolean
@@ -20,9 +29,17 @@ export const AuthContext = createContext<IInitialContext>(initialContext)
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 	const [token, setToken] = useState<string | null>(null)
 
+	const { setUser } = useContext(UserContext)
+
 	useEffect(() => {
 		get('token').then(token => {
 			setToken(token || null)
+			if (token) {
+				api.auth.getMyProfile(token).then(res => {
+					console.log('res', res)
+					setUser(res.data)
+				})
+			}
 		})
 	}, [])
 
@@ -40,6 +57,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
 	const logout = () => {
 		setToken(null)
+		setUser(null)
 		deleteKey('token')
 	}
 

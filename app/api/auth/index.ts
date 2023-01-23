@@ -1,5 +1,6 @@
 import { ILoginRequest, ILoginResponse } from '@/api/auth/auth.models'
-import { request } from '@/api/request'
+import { Token, request } from '@/api/request'
+import { IUser } from '@/models/user'
 
 export default {
 	login(requestData: ILoginRequest) {
@@ -7,6 +8,12 @@ export default {
 			url: 'api/v1/auth/login',
 			method: 'POST',
 			data: requestData
+		})
+	},
+	getMyProfile(token: Token) {
+		return request<IUser>({
+			url: 'api/v1/auth/user',
+			token
 		})
 	}
 }

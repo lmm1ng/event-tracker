@@ -1,4 +1,5 @@
 import api from '@/api'
+import { Avatar } from '@/components/avatar/Avatar'
 import { EventsLegend } from '@/components/events-legend/EventsLegend'
 import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { PeriodTypes } from '@/constants/periodTypes'
@@ -51,9 +52,17 @@ export const Home: FC = ({}) => {
 		nav.navigate('AddEvent', { initialDate: currentDate })
 	}
 
+	const goToProfile = () => {
+		nav.navigate('Profile')
+	}
+
 	return (
 		<MainLayout>
 			<View style={{ height: '100%' }}>
+				<Avatar
+					onPress={() => goToProfile()}
+					styles={{ marginTop: 20, marginRight: 20 }}
+				/>
 				<Text style={styles.dateText}>{currentDate.toDateString()}</Text>
 				<View style={{ flex: 1 }}>
 					<EventsLegend
