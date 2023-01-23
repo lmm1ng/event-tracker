@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from 'react'
 import { deleteKey, get, save } from '@/utils/secure-store'
+import { ReactNode, createContext, useEffect, useMemo, useState } from 'react'
 
 interface IInitialContext {
 	isAuth: boolean
@@ -22,12 +22,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
 	useEffect(() => {
 		get('token').then(token => {
-			setToken(token)
+			setToken(token || null)
 		})
 	}, [])
 
 	useEffect(() => {
-		if (token !== null) {
+		if (token) {
 			save('token', token)
 		}
 	}, [token])

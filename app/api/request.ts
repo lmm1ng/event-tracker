@@ -11,11 +11,16 @@ interface IRequestProps extends RawAxiosRequestConfig {
 
 interface IResponse<T> {
 	data: T
+	meta?: {
+		total?: number
+		limit?: number
+		page?: number
+	}
 }
 
 axios.interceptors.response.use(
 	response => {
-		return response
+		return response.data
 	},
 	error => {
 		if (error?.response?.status === 401) {
@@ -34,7 +39,7 @@ export const request = <T>({
 }: IRequestProps): Promise<IResponse<T>> => {
 	return axios.request<never, IResponse<T>>({
 		...config,
-		url: Constants.expoConfig?.extra?.apiUrl || '' + config.url,
+		url: (Constants.expoConfig?.extra?.apiUrl || '') + config.url,
 		headers: token
 			? {
 					Authorization: `Bearer ${token}`

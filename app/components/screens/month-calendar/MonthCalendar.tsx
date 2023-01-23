@@ -21,7 +21,7 @@ export const MonthCalendar: FC = () => {
 
 	const updateEventTypes = () => {
 		return api.events.getEventTypes(token).then(res => {
-			setEventTypes(() => res.data.data)
+			setEventTypes(() => res.data)
 		})
 	}
 
@@ -32,7 +32,7 @@ export const MonthCalendar: FC = () => {
 				token
 			)
 			.then(res => {
-				setEventsList(() => res.data.data)
+				setEventsList(() => res.data)
 			})
 	}
 

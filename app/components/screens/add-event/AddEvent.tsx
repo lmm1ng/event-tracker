@@ -32,9 +32,7 @@ export const AddEvent: FC<
 	const [eventTypes, setEventTypes] = useState<IEventType[]>([])
 
 	const updateEventTypes = () => {
-		return api.events
-			.getEventTypes(token)
-			.then(res => setEventTypes(res.data.data))
+		return api.events.getEventTypes(token).then(res => setEventTypes(res.data))
 	}
 
 	useEffect(() => {

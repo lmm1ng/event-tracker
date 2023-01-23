@@ -6,7 +6,7 @@ import { useTypedNavigation } from '@/hooks/useTypedNavigation'
 import { useFocusEffect } from '@react-navigation/native'
 import { Button, Input } from '@rneui/themed'
 import { FC, useCallback, useContext, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 export const Login: FC = () => {
 	const auth = useContext(AuthContext)

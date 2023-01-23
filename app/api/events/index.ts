@@ -1,15 +1,15 @@
-import { request, Token } from '@/api/request'
 import {
 	ICreateEventRequest,
 	ICreateEventTypeRequest,
 	IGetEventsRequest
 } from '@/api/events/events.models'
+import { Token, request } from '@/api/request'
 import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
 
 export default {
 	getEvents(data: IGetEventsRequest, token: Token) {
-		return request<{ data: IEvent[] }>({
+		return request<IEvent[]>({
 			url: 'api/v1/events/list',
 			method: 'POST',
 			token,
@@ -33,7 +33,7 @@ export default {
 		})
 	},
 	getEventTypes(token: Token) {
-		return request<{ data: IEventType[] }>({
+		return request<IEventType[]>({
 			url: 'api/v1/events/types',
 			method: 'GET',
 			token

@@ -28,12 +28,12 @@ export const Home: FC = ({}) => {
 				{ date: formatDate(currentDate), periodType: PeriodTypes.Day },
 				token
 			)
-			.then(res => setEventsList(() => res.data.data))
+			.then(res => setEventsList(() => res.data))
 	}
 	const updateEventTypes = () => {
 		return api.events
 			.getEventTypes(token)
-			.then(res => setEventTypes(() => res.data.data))
+			.then(res => setEventTypes(() => res.data))
 	}
 
 	useEffect(() => {
