@@ -1,11 +1,9 @@
 import api from '@/api'
+import { UICheckbox } from '@/components/ui/checkbox/UI-checkbox'
+import { UIInput } from '@/components/ui/input/UI-input'
+import { UIModal } from '@/components/ui/modal/UI-modal'
 import { AuthContext } from '@/hooks/useAuth'
-import { DialogActions } from '@rneui/base/dist/Dialog/Dialog.Actions'
-import { DialogButton } from '@rneui/base/dist/Dialog/Dialog.Button'
-import { DialogTitle } from '@rneui/base/dist/Dialog/Dialog.Title'
-import { Dialog, Input, Switch } from '@rneui/themed'
 import { FC, useContext, useState } from 'react'
-import { Text, View } from 'react-native'
 
 interface ICreateEventTypeModalProps {
 	show: boolean
@@ -22,9 +20,14 @@ export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({
 	const [eventTypeName, setEventTypeName] = useState('')
 
 	const submitModal = () => {
-		api.events
-			.createEventType({ name: eventTypeName, isVisible: isTypeVisible }, token)
-			.then(() => closeModal())
+		if (eventTypeName !== '') {
+			api.events
+				.createEventType(
+					{ name: eventTypeName, isVisible: isTypeVisible },
+					token
+				)
+				.then(() => closeModal())
+		}
 	}
 
 	const closeModal = () => {
@@ -34,40 +37,24 @@ export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({
 	}
 
 	return (
-		<Dialog
-			isVisible={show}
-			onBackdropPress={() => closeModal()}
+		<UIModal
+			show={show}
+			onClose={() => closeModal()}
+			title='New event type'
+			withButtons
+			onSubmit={() => submitModal()}
 		>
-			<DialogTitle title='New event type' />
-			<Input
+			<UIInput
+				placeholder='Name'
 				value={eventTypeName}
 				onChangeText={setEventTypeName}
 			/>
-			<View
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					alignItems: 'center',
-					justifyContent: 'flex-end'
-				}}
-			>
-				<Text style={{ fontSize: 15, marginRight: 10 }}>Visible</Text>
-				<Switch
-					value={isTypeVisible}
-					onValueChange={setTypeVisible}
-				/>
-			</View>
-			<DialogActions>
-				<DialogButton
-					title='Create'
-					disabled={eventTypeName === ''}
-					onPress={() => submitModal()}
-				/>
-				<DialogButton
-					title='Close'
-					onPress={() => closeModal()}
-				/>
-			</DialogActions>
-		</Dialog>
+			<UICheckbox
+				label='Visible'
+				value={isTypeVisible}
+				onToggle={setTypeVisible}
+				style={{ justifyContent: 'flex-end', marginTop: 10 }}
+			/>
+		</UIModal>
 	)
 }

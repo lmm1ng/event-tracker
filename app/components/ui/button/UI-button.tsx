@@ -1,55 +1,65 @@
+import { Text } from '@/components/ui/text/Text'
+import { THEME } from '@/theme/theme'
 import { FC } from 'react'
-import { ButtonProps, Pressable, StyleSheet, Text, View } from 'react-native'
+import {
+	StyleProp,
+	StyleSheet,
+	TouchableHighlight,
+	View,
+	ViewStyle
+} from 'react-native'
 
 interface IUIButtonProps {
 	text: string
 	variant?: 'primary' | 'secondary'
-	size?: 'small' | 'medium' | 'big'
-	width?: number
 	onPress?: () => void
+	disabled?: boolean
+	style?: StyleProp<ViewStyle>
 }
 
 export const UIButton: FC<IUIButtonProps> = ({
 	text,
 	variant = 'primary',
-	size = 'medium',
-	width = 200,
-	onPress = () => {}
+	onPress = () => {},
+	disabled = false,
+	style: outerStyle
 }) => {
 	return (
-		<Pressable onPress={onPress}>
-			<View style={[styles.button, styles[size], styles[variant], { width }]}>
-				<Text style={styles.text}>{text}</Text>
+		<TouchableHighlight
+			onPress={onPress}
+			style={[{ width: '100%' }, outerStyle]}
+		>
+			<View
+				style={[
+					styles.button,
+					styles[variant],
+					disabled && styles.primaryDisabled
+				]}
+			>
+				<Text>{text}</Text>
 			</View>
-		</Pressable>
+		</TouchableHighlight>
 	)
 }
 
 const styles = StyleSheet.create({
 	button: {
-		borderRadius: 30,
+		width: '100%',
+		borderRadius: THEME.borderRadius,
 		height: 40,
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
-	text: {
-		color: 'white'
-	},
 	primary: {
-		backgroundColor: '#04E39E'
+		backgroundColor: THEME.primaryColor
 	},
-	secondary: {},
-	small: {
-		height: 30
+	primaryDisabled: {
+		backgroundColor: THEME.disabledTextColor
 	},
-	medium: {
-		height: 50
-	},
-	big: {
-		height: 70
-	},
-	fullWidth: {
-		width: '100%'
+	secondary: {
+		borderColor: THEME.textColor,
+		borderWidth: 2,
+		backgroundColor: THEME.inputBackgroundColor
 	}
 })

@@ -1,6 +1,7 @@
 import api from '@/api'
 import { EventsLegend } from '@/components/events-legend/EventsLegend'
 import { MainLayout } from '@/components/layouts/main/MainLayout'
+import { UICalendar } from '@/components/ui/calendar/UI-calendar'
 import { PeriodTypes } from '@/constants/periodTypes'
 import { AuthContext } from '@/hooks/useAuth'
 import { IEvent } from '@/models/event'
@@ -10,7 +11,7 @@ import { hashColor } from '@/utils/hash-color'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { Calendar, DateData } from 'react-native-calendars/src'
+import { DateData } from 'react-native-calendars/src'
 
 export const MonthCalendar: FC = () => {
 	const { token } = useContext(AuthContext)
@@ -66,7 +67,7 @@ export const MonthCalendar: FC = () => {
 	return (
 		<MainLayout>
 			<View>
-				<Calendar
+				<UICalendar
 					maxDate={trimDate(new Date())}
 					markingType={'multi-dot'}
 					// lib stuff error
@@ -75,6 +76,7 @@ export const MonthCalendar: FC = () => {
 					onMonthChange={month => onMonthChange(month)}
 					enableSwipeMonths={true}
 					hideArrows={true}
+					style={{ marginBottom: 20 }}
 				/>
 				<EventsLegend
 					events={eventsList}

@@ -1,7 +1,7 @@
 import { Entry } from '@/Entry'
 import { AuthContextProvider } from '@/hooks/useAuth'
 import { UserContextProvider } from '@/hooks/useUser'
-import { LogBox } from 'react-native'
+import { LogBox, Text, View } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 LogBox.ignoreLogs([

@@ -3,16 +3,20 @@ import api from '@/api'
 import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { CreateEventTypeModal } from '@/components/screens/add-event/create-event-type-modal/CreateEventTypeModal'
 import { EventsTypesList } from '@/components/screens/add-event/event-types-list/EventsTypesList'
+import { UIButton } from '@/components/ui/button/UI-button'
+import { UICalendar } from '@/components/ui/calendar/UI-calendar'
+import { UIInput } from '@/components/ui/input/UI-input'
+import { UIModal } from '@/components/ui/modal/UI-modal'
+import { Text } from '@/components/ui/text/Text'
 import { AuthContext } from '@/hooks/useAuth'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
 import { IEventType } from '@/models/eventType'
 import { formatDate, trimDate } from '@/utils/date-converter'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Button, Dialog, SearchBar } from '@rneui/themed'
 import { FC, useContext, useEffect, useMemo, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Calendar, DateData } from 'react-native-calendars/src'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { DateData } from 'react-native-calendars/src'
 
 export const AddEvent: FC<
 	// @ts-ignore
@@ -66,15 +70,19 @@ export const AddEvent: FC<
 	const [isCreateEventTypeModal, setCreateEventTypeModal] = useState(false)
 	return (
 		<MainLayout>
-			<Dialog
-				isVisible={isChangeCurrentDateModal}
-				onBackdropPress={() => setCurrentDateModal(false)}
+			<UIModal
+				show={isChangeCurrentDateModal}
+				onClose={() => setCurrentDateModal(false)}
 			>
-				<Calendar
+				<UICalendar
 					onDayPress={date => onCurrentDateSubmit(date)}
 					maxDate={trimDate(new Date())}
 				/>
-			</Dialog>
+			</UIModal>
+			<CreateEventTypeModal
+				show={isCreateEventTypeModal}
+				close={() => setCreateEventTypeModal(false)}
+			/>
 			<View style={styles.wrapper}>
 				<Text
 					style={styles.dateText}
@@ -86,9 +94,9 @@ export const AddEvent: FC<
 					/>
 					{currentDate.toDateString()}
 				</Text>
-				<SearchBar
-					platform='android'
+				<UIInput
 					onChangeText={setSearchBoxValue}
+					icon='search1'
 					value={searchBoxValue}
 				/>
 				<ScrollView style={{ flex: 1, marginTop: 20 }}>
@@ -98,23 +106,18 @@ export const AddEvent: FC<
 						setChecked={setCheckedType}
 					/>
 				</ScrollView>
-				<Button
-					title='Create event type'
-					type='clear'
-					containerStyle={{ alignSelf: 'flex-end' }}
+				<UIButton
+					text='Create event type'
+					variant='secondary'
+					style={{ alignSelf: 'flex-end', width: 200, marginBottom: 20 }}
 					onPress={() => setCreateEventTypeModal(true)}
 				/>
-				<Button
-					title='Add'
-					containerStyle={styles.addButton}
+				<UIButton
+					text='Add'
 					disabled={checkedType === -1}
 					onPress={() => createEvent()}
 				/>
 			</View>
-			<CreateEventTypeModal
-				show={isCreateEventTypeModal}
-				close={() => setCreateEventTypeModal(false)}
-			/>
 		</MainLayout>
 	)
 }
@@ -128,6 +131,5 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		marginVertical: 20,
 		textAlign: 'center'
-	},
-	addButton: {}
+	}
 })

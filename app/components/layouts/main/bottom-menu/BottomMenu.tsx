@@ -1,5 +1,6 @@
 import { RootRoutesParams } from '@/Entry'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
+import { THEME } from '@/theme/theme'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { useRoute } from '@react-navigation/native'
 import { FC } from 'react'
@@ -26,10 +27,6 @@ export const BottomMenu: FC = () => {
 			routeName: 'Home',
 			selectedFor: ['Home', 'AddEvent', 'Profile']
 		}
-		// {
-		// 	id: 3,
-		// 	name: 'profile'
-		// }
 	]
 
 	return (
@@ -42,8 +39,12 @@ export const BottomMenu: FC = () => {
 					<AntDesign
 						// @ts-ignore
 						name={el.name}
-						size={30}
-						color={el.selectedFor.includes(route.name) ? '#1F89DC' : '#A4AABA'}
+						size={25}
+						color={
+							el.selectedFor.includes(route.name)
+								? THEME.primaryColor
+								: THEME.textColor
+						}
 					/>
 				</TouchableOpacity>
 			))}
@@ -58,6 +59,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		paddingBottom: 20,
 		paddingTop: 10,
-		backgroundColor: '#38373A'
+		backgroundColor: THEME.inputBackgroundColor
 	}
 })

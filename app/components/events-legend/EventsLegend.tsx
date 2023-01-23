@@ -1,12 +1,10 @@
+import { UICard } from '@/components/ui/card/UI-card'
+import { Text } from '@/components/ui/text/Text'
 import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
 import { hashColor } from '@/utils/hash-color'
-import { CardDivider } from '@rneui/base/dist/Card/Card.Divider'
-import { CardTitle } from '@rneui/base/dist/Card/Card.Title'
-import { Card } from '@rneui/themed'
 import { FC, useMemo } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-
+import { StyleSheet, View } from 'react-native'
 
 interface IEventsLegendProps {
 	events: IEvent[]
@@ -29,13 +27,7 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 	}, [eventTypes])
 
 	return (
-		<Card>
-			{header && (
-				<>
-					<CardTitle>Events</CardTitle>
-					<CardDivider />
-				</>
-			)}
+		<UICard title={header ? 'Events' : ''}>
 			<View
 				style={{
 					...styles.wrapper,
@@ -63,7 +55,7 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 							/>
 							<Text
 								style={{
-									fontSize: variant === 'normal' ? 14 : 20
+									fontSize: variant === 'big' ? 20 : undefined
 								}}
 							>
 								{eventTypeMap[el.eventTypeId]?.eventType || ''}
@@ -71,7 +63,7 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 						</View>
 					))}
 			</View>
-		</Card>
+		</UICard>
 	)
 }
 
@@ -88,9 +80,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	bigDot: {
-		width: 20,
-		height: 20,
-		borderRadius: 20,
+		width: 10,
+		height: 10,
+		borderRadius: 10,
 		marginRight: 5
 	},
 	normalDot: {

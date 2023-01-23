@@ -36,7 +36,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 			setToken(token || null)
 			if (token) {
 				api.auth.getMyProfile(token).then(res => {
-					console.log('res', res)
 					setUser(res.data)
 				})
 			}

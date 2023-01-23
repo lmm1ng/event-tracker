@@ -1,14 +1,9 @@
+import { Text } from '@/components/ui/text/Text'
 import { UserContext } from '@/hooks/useUser'
+import { THEME } from '@/theme/theme'
 import { hashColor } from '@/utils/hash-color'
 import { FC, useContext } from 'react'
-import {
-	Pressable,
-	StyleProp,
-	StyleSheet,
-	Text,
-	View,
-	ViewStyle
-} from 'react-native'
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 interface IAvatarProps {
 	onPress?: () => void
@@ -26,19 +21,17 @@ export const Avatar: FC<IAvatarProps> = ({
 		<>
 			{user ? (
 				<Pressable onPress={() => onPress && onPress()}>
-					<View
-						style={{ ...styles.wrapper, ...((outerStyles || {}) as object) }}
-					>
+					<View style={[styles.wrapper, outerStyles]}>
 						<Text style={styles[`${size}DisplayName`]}>
 							{user.displayedName}
 						</Text>
 						{/*TODO Avatar image*/}
 						<View
-							style={{
-								...styles.imagePlaceholder,
-								...styles[`${size}ImagePlaceholder`],
-								backgroundColor: hashColor(user.displayedName)
-							}}
+							style={[
+								styles.imagePlaceholder,
+								styles[`${size}ImagePlaceholder`],
+								{ backgroundColor: hashColor(user.displayedName) }
+							]}
 						>
 							<Text
 								style={{
@@ -64,10 +57,10 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end'
 	},
 	normalDisplayName: {
-		fontSize: 25
+		fontSize: THEME.fontSizeHeader
 	},
 	bigDisplayName: {
-		fontSize: 35
+		fontSize: THEME.fontSizeHeader + 10
 	},
 	imagePlaceholder: {
 		display: 'flex',
@@ -76,22 +69,22 @@ const styles = StyleSheet.create({
 		marginLeft: 10
 	},
 	normalImagePlaceholder: {
-		width: 50,
-		height: 50,
-		borderRadius: 50
+		width: THEME.fontSizeHeader + 20,
+		height: THEME.fontSizeHeader + 20,
+		borderRadius: THEME.fontSizeHeader + 20
 	},
 	bigImagePlaceholder: {
-		width: 70,
-		height: 70,
-		borderRadius: 70
+		width: THEME.fontSizeHeader + 40,
+		height: THEME.fontSizeHeader + 40,
+		borderRadius: THEME.fontSizeHeader + 40,
 	},
 	placeholderText: {
 		color: 'white'
 	},
 	normalPlaceholderText: {
-		fontSize: 25
+		fontSize: THEME.fontSizeHeader + 5
 	},
 	bigPlaceholderText: {
-		fontSize: 35
+		fontSize: THEME.fontSizeHeader + 10
 	}
 })

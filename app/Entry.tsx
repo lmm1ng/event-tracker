@@ -1,4 +1,3 @@
-import { AuthLayout } from '@/components/layouts/auth/AuthLayout'
 import { AddEvent } from '@/components/screens/add-event/AddEvent'
 import { Friends } from '@/components/screens/friends/Friends'
 import { Home } from '@/components/screens/home/Home'
@@ -6,12 +5,16 @@ import { Login } from '@/components/screens/login/Login'
 import { MonthCalendar } from '@/components/screens/month-calendar/MonthCalendar'
 import { Profile } from '@/components/screens/profile/Profile'
 import { AuthContext } from '@/hooks/useAuth'
+import { THEME } from '@/theme/theme'
 import { navigationRef } from '@/utils/rootNavigation'
-import { NavigationContainer, ParamListBase } from '@react-navigation/native'
+import {
+	DefaultTheme,
+	NavigationContainer,
+	Theme
+} from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useContext } from 'react'
 import { View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export type RootRoutesParams = {
 	Home: undefined
@@ -22,6 +25,14 @@ export type RootRoutesParams = {
 	}
 	Profile: undefined
 	Friends: undefined
+}
+
+const customTheme: Theme = {
+	...DefaultTheme,
+	colors: {
+		...DefaultTheme.colors,
+		background: THEME.screenBackgroundColor
+	}
 }
 
 const Stack = createNativeStackNavigator<RootRoutesParams>()
@@ -70,18 +81,17 @@ const protectedRoutes = [
 
 export const Entry = () => {
 	const { isAuth } = useContext(AuthContext)
-	const insets = useSafeAreaInsets()
 	return (
 		<View
 			style={{
 				width: '100%',
-				height: '100%',
-				paddingTop: insets.top,
-				paddingLeft: insets.left,
-				paddingRight: insets.right
+				height: '100%'
 			}}
 		>
-			<NavigationContainer ref={navigationRef}>
+			<NavigationContainer
+				ref={navigationRef}
+				theme={customTheme}
+			>
 				<Stack.Navigator>
 					{isAuth ? (
 						<Stack.Group screenOptions={{ animation: 'fade' }}>
@@ -89,9 +99,7 @@ export const Entry = () => {
 							{routes}
 						</Stack.Group>
 					) : (
-						<Stack.Group>
-							{routes}
-						</Stack.Group>
+						<Stack.Group>{routes}</Stack.Group>
 					)}
 				</Stack.Navigator>
 			</NavigationContainer>

@@ -1,11 +1,12 @@
 import api from '@/api'
 import { ILoginRequest } from '@/api/auth/auth.models'
 import { AuthLayout } from '@/components/layouts/auth/AuthLayout'
+import { UIButton } from '@/components/ui/button/UI-button'
+import { UIInput } from '@/components/ui/input/UI-input'
 import { AuthContext } from '@/hooks/useAuth'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
 import { UserContext } from '@/hooks/useUser'
 import { useFocusEffect } from '@react-navigation/native'
-import { Button, Input } from '@rneui/themed'
 import { FC, useCallback, useContext, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -44,25 +45,26 @@ export const Login: FC = () => {
 	return (
 		<AuthLayout>
 			<View style={styles.wrapper}>
-				<Input
+				<UIInput
 					label='Login'
 					value={loginForm.username}
 					onChangeText={text =>
 						setLoginForm(prev => ({ ...prev, username: text }))
 					}
+					style={{ marginBottom: 10 }}
 				/>
-				<Input
+				<UIInput
 					label='Password'
+					password
 					value={loginForm.password}
-					secureTextEntry={true}
 					onChangeText={text =>
 						setLoginForm(prev => ({ ...prev, password: text }))
 					}
+					style={{ marginBottom: 30 }}
 				/>
-				<Button
-					title='Войти'
+				<UIButton
+					text='Войти'
 					onPress={() => login()}
-					containerStyle={{ width: '80%' }}
 				/>
 			</View>
 		</AuthLayout>

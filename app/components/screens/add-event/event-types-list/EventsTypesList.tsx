@@ -1,10 +1,9 @@
-import { CreateEventTypeModal } from '@/components/screens/add-event/create-event-type-modal/CreateEventTypeModal'
+import { UICard } from '@/components/ui/card/UI-card'
+import { UICheckbox } from '@/components/ui/checkbox/UI-checkbox'
+import { Text } from '@/components/ui/text/Text'
 import { IEventType } from '@/models/eventType'
-import { ListItemCheckBox } from '@rneui/base/dist/ListItem/ListItem.CheckBox'
-import { ListItemContent } from '@rneui/base/dist/ListItem/ListItem.Content'
-import { ListItemTitle } from '@rneui/base/dist/ListItem/ListItem.Title'
-import { Button, Card, ListItem } from '@rneui/themed'
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
+import { StyleSheet, View } from 'react-native'
 
 interface IEventsTypesListProps {
 	types: IEventType[]
@@ -18,18 +17,32 @@ export const EventsTypesList: FC<IEventsTypesListProps> = ({
 	setChecked
 }) => {
 	return (
-		<Card>
-			{types.map(type => (
-				<ListItem key={type.id}>
-					<ListItemCheckBox
-						checked={checked === type.id}
-						onPress={() => setChecked(type.id)}
+		<UICard style={{ paddingVertical: 20 }}>
+			{types.map((type, id, arr) => (
+				<View
+					style={[
+						styles.listItem,
+						id !== arr.length - 1 ? { marginBottom: 20 } : undefined
+					]}
+					key={type.id}
+				>
+					<UICheckbox
+						value={checked === type.id}
+						onToggle={() => setChecked(type.id)}
+						style={styles.checkbox}
 					/>
-					<ListItemContent>
-						<ListItemTitle>{type.eventType}</ListItemTitle>
-					</ListItemContent>
-				</ListItem>
+					<Text>{type.eventType}</Text>
+				</View>
 			))}
-		</Card>
+		</UICard>
 	)
 }
+
+const styles = StyleSheet.create({
+	listItem: {
+		flexDirection: 'row'
+	},
+	checkbox: {
+		marginRight: 10
+	}
+})

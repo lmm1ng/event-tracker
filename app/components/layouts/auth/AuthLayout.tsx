@@ -1,12 +1,26 @@
 import { FC } from 'react'
-import { View, ViewProps, StyleSheet } from 'react-native'
+import { StyleSheet, View, ViewProps } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const AuthLayout: FC<ViewProps> = ({ children }) => {
-	return <View style={styles.wrapper}>{children}</View>
+	const insets = useSafeAreaInsets()
+	return (
+		<View
+			style={{
+				paddingTop: insets.top,
+				paddingBottom: insets.bottom,
+				...styles.wrapper
+			}}
+		>
+			{children}
+		</View>
+	)
 }
 
 const styles = StyleSheet.create({
 	wrapper: {
-		height: '100%'
+		width: '100%',
+		height: '100%',
+		paddingHorizontal: 20
 	}
 })

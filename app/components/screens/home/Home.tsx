@@ -2,16 +2,18 @@ import api from '@/api'
 import { Avatar } from '@/components/avatar/Avatar'
 import { EventsLegend } from '@/components/events-legend/EventsLegend'
 import { MainLayout } from '@/components/layouts/main/MainLayout'
+import { Text } from '@/components/ui/text/Text'
 import { PeriodTypes } from '@/constants/periodTypes'
 import { AuthContext } from '@/hooks/useAuth'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
 import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
+import { THEME } from '@/theme/theme'
 import { formatDate } from '@/utils/date-converter'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useEffect, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export const Home: FC = ({}) => {
 	const { token } = useContext(AuthContext)
@@ -76,8 +78,8 @@ export const Home: FC = ({}) => {
 					<TouchableOpacity onPress={() => goToAddEvent()}>
 						<AntDesign
 							name='pluscircle'
-							color='#1F89DC'
-							size={60}
+							color={THEME.primaryColor}
+							size={50}
 						/>
 					</TouchableOpacity>
 				</View>
@@ -92,14 +94,14 @@ const styles = StyleSheet.create({
 		display: 'flex'
 	},
 	dateText: {
-		fontSize: 30,
-		marginTop: 10,
+		fontSize: THEME.fontSizeHeader + 8,
+		marginVertical: 10,
 		marginLeft: 10
 	},
 	addEventButton: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginBottom: 20
+		marginBottom: 15
 	}
 })

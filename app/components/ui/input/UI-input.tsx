@@ -1,40 +1,72 @@
-import { StyleSheet, TextInput, TextInputProps } from 'react-native'
+import { Text } from '@/components/ui/text/Text'
+import { THEME } from '@/theme/theme'
+import AntDesign from '@expo/vector-icons/AntDesign'
 import { FC } from 'react'
-import { StyleProp } from 'react-native'
-import { TextStyle } from 'react-native'
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native'
 
 interface IUIInputProps extends TextInputProps {
-	width?: number
 	placeholder?: string
-	isPassword: boolean
-	styles: StyleProp<TextStyle>
+	label?: string
+	password?: boolean
+	icon?: string
 }
 
 export const UIInput: FC<IUIInputProps> = ({
-	width = 200,
 	placeholder = '',
-	styles: outerStyles,
-	isPassword = false,
+	label = '',
+	password = false,
 	value,
-	onChangeText
+	onChangeText,
+	icon = '',
+	style: outerStyles
 }) => {
 	return (
-		<TextInput
-			placeholder={placeholder}
-			style={[styles.input, { width }, outerStyles]}
-			secureTextEntry={isPassword}
-			value={value}
-			onChangeText={text => (onChangeText ? onChangeText(text) : () => {})}
-		/>
+		<View style={[styles.wrapper, outerStyles]}>
+			<Text style={styles.label}>{label}</Text>
+			<View style={styles.inputWrapper}>
+				{icon ? (
+					<AntDesign
+						// wrong types
+						// @ts-ignore
+						name={icon}
+						size={THEME.fontSizeRegular}
+						color={THEME.textColor}
+						style={{ marginRight: 10 }}
+					/>
+				) : null}
+				<TextInput
+					placeholder={placeholder}
+					placeholderTextColor={THEME.placeholderColor}
+					style={styles.input}
+					secureTextEntry={password}
+					value={value}
+					onChangeText={text => (onChangeText ? onChangeText(text) : () => {})}
+				/>
+			</View>
+		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-	input: {
-		backgroundColor: 'white',
-		borderColor: '#E6E9ED',
+	wrapper: {
+		width: '100%'
+	},
+	label: {
+		fontSize: 16,
+		marginBottom: 4
+	},
+	inputWrapper: {
+		flexDirection: 'row',
+		backgroundColor: THEME.inputBackgroundColor,
+		borderColor: THEME.inputBackgroundColor,
 		borderWidth: 2,
-		borderRadius: 5,
-		padding: 5
+		borderRadius: THEME.borderRadius,
+		padding: 10,
+		alignItems: 'center'
+	},
+	input: {
+		color: THEME.textColor,
+		backgroundColor: THEME.inputBackgroundColor,
+		flex: 1
 	}
 })

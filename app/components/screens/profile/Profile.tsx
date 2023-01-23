@@ -1,7 +1,8 @@
 import { Avatar } from '@/components/avatar/Avatar'
 import { MainLayout } from '@/components/layouts/main/MainLayout'
+import { UIButton } from '@/components/ui/button/UI-button'
+import { UICard } from '@/components/ui/card/UI-card'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
-import { Button } from '@rneui/themed'
 import { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -11,21 +12,17 @@ export const Profile: FC = () => {
 		<MainLayout>
 			<View style={styles.wrapper}>
 				<Avatar size='big' />
-				<View style={styles.buttons}>
-					<Button
-						style={styles.button}
-						title='Friends'
-						onPress={() => nav.navigate('Friends')}
+				<UICard style={[styles.buttons, { padding: 30 }]}>
+					<UIButton
+						text='Friends'
+						style={{ marginBottom: 20 }}
 					/>
-					<Button
-						style={styles.button}
-						title='Events'
+					<UIButton
+						text='Events'
+						style={{ marginBottom: 20 }}
 					/>
-					<Button
-						style={styles.button}
-						title='Settings'
-					/>
-				</View>
+					<UIButton text='Settings' />
+				</UICard>
 			</View>
 		</MainLayout>
 	)
@@ -39,9 +36,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	buttons: {
-		marginTop: 50,
-		display: 'flex',
-		alignItems: 'center'
+		marginTop: 50
 	},
 	button: {
 		marginBottom: 10,
