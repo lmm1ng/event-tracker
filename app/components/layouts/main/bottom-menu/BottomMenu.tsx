@@ -1,14 +1,19 @@
-import { FC } from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import { StyleSheet } from 'react-native'
+import { RootRoutesParams } from '@/Entry'
+import { useTypedNavigation } from '@/hooks/useTypedNavigation'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native'
+import { FC } from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
-
-export const BottomMenu: FC = (props) => {
-	const nav = useNavigation()
+export const BottomMenu: FC = () => {
+	const nav = useTypedNavigation()
 	const route = useRoute()
-	const menuItems: { id: number, name: string, routeName: string, selectedFor: string[] }[] = [
+	const menuItems: {
+		id: number
+		name: string
+		routeName: keyof RootRoutesParams
+		selectedFor: string[]
+	}[] = [
 		{
 			id: 1,
 			name: 'calendar',
@@ -30,8 +35,16 @@ export const BottomMenu: FC = (props) => {
 	return (
 		<View style={styles.wrapper}>
 			{menuItems.map(el => (
-				<TouchableOpacity key={el.id} onPress={() => nav.navigate(el.routeName)}>
-					<AntDesign name={el.name} size={30} color={el.selectedFor.includes(route.name) ? '#1F89DC' : '#A4AABA'} />
+				<TouchableOpacity
+					key={el.id}
+					onPress={() => nav.navigate(el.routeName, {} as never)}
+				>
+					<AntDesign
+						// @ts-ignore
+						name={el.name}
+						size={30}
+						color={el.selectedFor.includes(route.name) ? '#1F89DC' : '#A4AABA'}
+					/>
 				</TouchableOpacity>
 			))}
 		</View>

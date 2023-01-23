@@ -1,10 +1,10 @@
 export interface ICreateEventTypeRequest {
-	isVisible: boolean,
+	isVisible: boolean
 	name: string
 }
 
 export interface ICreateEventRequest {
-	date: string,
+	date: string
 	eventTypeId: number
 }
 

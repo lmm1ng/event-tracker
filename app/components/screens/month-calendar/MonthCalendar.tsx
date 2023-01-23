@@ -1,16 +1,16 @@
-import { FC, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { MainLayout } from '@/components/layouts/main/MainLayout'
-import { View } from 'react-native'
-import { Calendar } from 'react-native-calendars/src'
 import api from '@/api'
-import { AuthContext } from '@/hooks/useAuth'
-import { formatDate, trimDate } from '@/utils/date-converter'
-import { PeriodTypes } from '@/constants/periodTypes'
 import { EventsLegend } from '@/components/events-legend/EventsLegend'
-import { hashColor } from '@/utils/hash-color'
+import { MainLayout } from '@/components/layouts/main/MainLayout'
+import { PeriodTypes } from '@/constants/periodTypes'
+import { AuthContext } from '@/hooks/useAuth'
 import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
+import { formatDate, trimDate } from '@/utils/date-converter'
+import { hashColor } from '@/utils/hash-color'
 import { useFocusEffect } from '@react-navigation/native'
+import { FC, useCallback, useContext, useMemo, useState } from 'react'
+import { View } from 'react-native'
+import { Calendar, DateData } from 'react-native-calendars/src'
 
 export const MonthCalendar: FC = () => {
 	const { token } = useContext(AuthContext)
@@ -20,14 +20,17 @@ export const MonthCalendar: FC = () => {
 	const [eventTypes, setEventTypes] = useState<IEventType[]>([])
 
 	const updateEventTypes = () => {
-		return api.events.getEventTypes(token)
-			.then(res => {
-				setEventTypes(() => res.data.data)
-			})
+		return api.events.getEventTypes(token).then(res => {
+			setEventTypes(() => res.data.data)
+		})
 	}
 
 	const updateEventList = (date = new Date()) => {
-		return api.events.getEvents({ date: formatDate(date), periodType: PeriodTypes.Month }, token)
+		return api.events
+			.getEvents(
+				{ date: formatDate(date), periodType: PeriodTypes.Month },
+				token
+			)
 			.then(res => {
 				setEventsList(() => res.data.data)
 			})
@@ -40,7 +43,7 @@ export const MonthCalendar: FC = () => {
 		}, [])
 	)
 
-	const onMonthChange = (date) => {
+	const onMonthChange = (date: DateData) => {
 		updateEventList(new Date(date.dateString))
 	}
 
@@ -57,9 +60,8 @@ export const MonthCalendar: FC = () => {
 			}
 
 			return acc
-		}, {})
+		}, {} as Record<string, { dots: Array<{ key: IEvent['id']; color: string }> }>)
 	}, [eventsList])
-
 
 	return (
 		<MainLayout>
@@ -67,12 +69,17 @@ export const MonthCalendar: FC = () => {
 				<Calendar
 					maxDate={trimDate(new Date())}
 					markingType={'multi-dot'}
+					// lib stuff error
+					// @ts-ignore
 					markedDates={markedDays}
 					onMonthChange={month => onMonthChange(month)}
 					enableSwipeMonths={true}
 					hideArrows={true}
 				/>
-				<EventsLegend events={eventsList} eventTypes={eventTypes} />
+				<EventsLegend
+					events={eventsList}
+					eventTypes={eventTypes}
+				/>
 			</View>
 		</MainLayout>
 	)

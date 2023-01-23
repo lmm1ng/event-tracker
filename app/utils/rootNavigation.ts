@@ -1,9 +1,18 @@
-import { createNavigationContainerRef } from '@react-navigation/native'
+import { RootRoutesParams } from '@/Entry'
+import {
+	NavigationContainerRef,
+	createNavigationContainerRef
+} from '@react-navigation/native'
 
-export const navigationRef = createNavigationContainerRef()
+export const navigationRef =
+	createNavigationContainerRef<NavigationContainerRef<RootRoutesParams>>()
 
-export const navigate = (name, params) => {
+export const navigate = <T extends keyof RootRoutesParams>(
+	name: T,
+	params: RootRoutesParams[T]
+) => {
 	if (navigationRef.isReady()) {
+		// @ts-ignore
 		navigationRef.navigate(name, params)
 	}
 }

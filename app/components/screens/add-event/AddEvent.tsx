@@ -1,24 +1,26 @@
-import { FC, useContext, useEffect, useMemo, useState } from 'react'
-import { MainLayout } from '@/components/layouts/main/MainLayout'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { IAuthRoutesParams } from '@/Entry'
-import { SearchBar } from '@rneui/base'
-import { IEventType } from '@/models/eventType'
+import { RootRoutesParams } from '@/Entry'
 import api from '@/api'
-import { AuthContext } from '@/hooks/useAuth'
+import { MainLayout } from '@/components/layouts/main/MainLayout'
+import { CreateEventTypeModal } from '@/components/screens/add-event/create-event-type-modal/CreateEventTypeModal'
 import { EventsTypesList } from '@/components/screens/add-event/event-types-list/EventsTypesList'
-import { Button, Dialog } from '@rneui/themed'
-import { Calendar, DateData } from 'react-native-calendars/src'
+import { AuthContext } from '@/hooks/useAuth'
+import { useTypedNavigation } from '@/hooks/useTypedNavigation'
+import { IEventType } from '@/models/eventType'
 import { formatDate, trimDate } from '@/utils/date-converter'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import { CreateEventTypeModal } from '@/components/screens/add-event/create-event-type-modal/CreateEventTypeModal'
-import { useNavigation } from '@react-navigation/native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Button, Dialog, SearchBar } from '@rneui/themed'
+import { FC, useContext, useEffect, useMemo, useState } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Calendar, DateData } from 'react-native-calendars/src'
 
-export const AddEvent: FC<NativeStackScreenProps<IAuthRoutesParams, 'AddEvent'>> = ({ route }) => {
+export const AddEvent: FC<
+	// @ts-ignore
+	NativeStackScreenProps<RootRoutesParams, 'AddEvent'>
+> = ({ route }) => {
 	const { token } = useContext(AuthContext)
 
-	const nav = useNavigation()
+	const nav = useTypedNavigation()
 
 	const [currentDate, setCurrenDate] = useState(route.params.initialDate)
 	const [isChangeCurrentDateModal, setCurrentDateModal] = useState(false)
@@ -30,7 +32,8 @@ export const AddEvent: FC<NativeStackScreenProps<IAuthRoutesParams, 'AddEvent'>>
 	const [eventTypes, setEventTypes] = useState<IEventType[]>([])
 
 	const updateEventTypes = () => {
-		return api.events.getEventTypes(token)
+		return api.events
+			.getEventTypes(token)
 			.then(res => setEventTypes(res.data.data))
 	}
 
@@ -51,10 +54,14 @@ export const AddEvent: FC<NativeStackScreenProps<IAuthRoutesParams, 'AddEvent'>>
 	}, [filteredTypes.length])
 
 	const createEvent = () => {
-		api.events.createEvent({
-			date: formatDate(currentDate),
-			eventTypeId: checkedType
-		}, token)
+		api.events
+			.createEvent(
+				{
+					date: formatDate(currentDate),
+					eventTypeId: checkedType
+				},
+				token
+			)
 			.then(() => nav.navigate('MonthCalendar'))
 	}
 
@@ -66,7 +73,7 @@ export const AddEvent: FC<NativeStackScreenProps<IAuthRoutesParams, 'AddEvent'>>
 				onBackdropPress={() => setCurrentDateModal(false)}
 			>
 				<Calendar
-					onDayPress={(date) => onCurrentDateSubmit(date)}
+					onDayPress={date => onCurrentDateSubmit(date)}
 					maxDate={trimDate(new Date())}
 				/>
 			</Dialog>
@@ -75,7 +82,10 @@ export const AddEvent: FC<NativeStackScreenProps<IAuthRoutesParams, 'AddEvent'>>
 					style={styles.dateText}
 					onPress={() => setCurrentDateModal(true)}
 				>
-					<AntDesign name='calendar' size={20} />
+					<AntDesign
+						name='calendar'
+						size={20}
+					/>
 					{currentDate.toDateString()}
 				</Text>
 				<SearchBar

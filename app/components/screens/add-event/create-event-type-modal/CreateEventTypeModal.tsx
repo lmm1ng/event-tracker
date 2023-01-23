@@ -1,25 +1,29 @@
-import { FC, useContext, useState } from 'react'
-import { Dialog, Input, Switch } from '@rneui/themed'
-import { Text, View } from 'react-native'
+import api from '@/api'
+import { AuthContext } from '@/hooks/useAuth'
 import { DialogActions } from '@rneui/base/dist/Dialog/Dialog.Actions'
 import { DialogButton } from '@rneui/base/dist/Dialog/Dialog.Button'
 import { DialogTitle } from '@rneui/base/dist/Dialog/Dialog.Title'
-import api from '@/api'
-import { AuthContext } from '@/hooks/useAuth'
+import { Dialog, Input, Switch } from '@rneui/themed'
+import { FC, useContext, useState } from 'react'
+import { Text, View } from 'react-native'
 
 interface ICreateEventTypeModalProps {
-	show: boolean,
+	show: boolean
 	close: () => void
 }
 
-export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({ show, close }) => {
+export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({
+	show,
+	close
+}) => {
 	const { token } = useContext(AuthContext)
 
 	const [isTypeVisible, setTypeVisible] = useState(false)
 	const [eventTypeName, setEventTypeName] = useState('')
 
 	const submitModal = () => {
-		api.events.createEventType({ name: eventTypeName, isVisible: isTypeVisible }, token)
+		api.events
+			.createEventType({ name: eventTypeName, isVisible: isTypeVisible }, token)
 			.then(() => closeModal())
 	}
 
@@ -39,7 +43,14 @@ export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({ show, clo
 				value={eventTypeName}
 				onChangeText={setEventTypeName}
 			/>
-			<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+			<View
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					alignItems: 'center',
+					justifyContent: 'flex-end'
+				}}
+			>
 				<Text style={{ fontSize: 15, marginRight: 10 }}>Visible</Text>
 				<Switch
 					value={isTypeVisible}
@@ -52,7 +63,10 @@ export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({ show, clo
 					disabled={eventTypeName === ''}
 					onPress={() => submitModal()}
 				/>
-				<DialogButton title='Close' onPress={() => closeModal()} />
+				<DialogButton
+					title='Close'
+					onPress={() => closeModal()}
+				/>
 			</DialogActions>
 		</Dialog>
 	)

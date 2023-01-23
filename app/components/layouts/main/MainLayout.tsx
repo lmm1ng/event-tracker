@@ -3,10 +3,12 @@ import { StyleSheet, View, ViewProps } from 'react-native'
 import { BottomMenu } from '@/components/layouts/main/bottom-menu/BottomMenu'
 
 export const MainLayout: FC<ViewProps> = ({ children }) => {
-	return <View style={styles.wrapper}>
-		<View style={styles.content}>{children}</View>
-		<BottomMenu />
-	</View>
+	return (
+		<View style={styles.wrapper}>
+			<View style={styles.content}>{children}</View>
+			<BottomMenu />
+		</View>
+	)
 }
 
 const styles = StyleSheet.create({
@@ -16,5 +18,5 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		flex: 1
-	},
+	}
 })

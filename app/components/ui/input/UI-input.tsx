@@ -4,30 +4,27 @@ import { StyleProp } from 'react-native'
 import { TextStyle } from 'react-native'
 
 interface IUIInputProps extends TextInputProps {
-	width?: number,
-	placeholder?: string,
+	width?: number
+	placeholder?: string
 	isPassword: boolean
 	styles: StyleProp<TextStyle>
 }
 
-export const UIInput:
-	FC<IUIInputProps> = (
-	{
-		width = 200,
-		placeholder = '',
-		styles: outerStyles,
-		isPassword = false,
-		value,
-		onChangeText
-	}) => {
+export const UIInput: FC<IUIInputProps> = ({
+	width = 200,
+	placeholder = '',
+	styles: outerStyles,
+	isPassword = false,
+	value,
+	onChangeText
+}) => {
 	return (
 		<TextInput
 			placeholder={placeholder}
 			style={[styles.input, { width }, outerStyles]}
 			secureTextEntry={isPassword}
 			value={value}
-			onChangeText={text => onChangeText ? onChangeText(text) : () => {
-			}}
+			onChangeText={text => (onChangeText ? onChangeText(text) : () => {})}
 		/>
 	)
 }

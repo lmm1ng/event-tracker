@@ -1,24 +1,21 @@
 import { FC } from 'react'
-import { ButtonProps, Pressable, StyleSheet, View, Text } from 'react-native'
+import { ButtonProps, Pressable, StyleSheet, Text, View } from 'react-native'
 
 interface IUIButtonProps {
-	text: string,
-	variant?: 'primary' | 'secondary',
-	size?: 'small' | 'medium' | 'big',
-	width?: number,
+	text: string
+	variant?: 'primary' | 'secondary'
+	size?: 'small' | 'medium' | 'big'
+	width?: number
 	onPress?: () => void
 }
 
-export const UIButton:
-	FC<IUIButtonProps> = (
-	{
-		text,
-		variant = 'primary',
-		size = 'medium',
-		width = 200,
-		onPress = () => {
-		}
-	}) => {
+export const UIButton: FC<IUIButtonProps> = ({
+	text,
+	variant = 'primary',
+	size = 'medium',
+	width = 200,
+	onPress = () => {}
+}) => {
 	return (
 		<Pressable onPress={onPress}>
 			<View style={[styles.button, styles[size], styles[variant], { width }]}>
@@ -42,6 +39,7 @@ const styles = StyleSheet.create({
 	primary: {
 		backgroundColor: '#04E39E'
 	},
+	secondary: {},
 	small: {
 		height: 30
 	},

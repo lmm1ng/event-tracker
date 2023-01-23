@@ -1,5 +1,9 @@
 import { request, Token } from '@/api/request'
-import { ICreateEventRequest, ICreateEventTypeRequest, IGetEventsRequest } from '@/api/events/events.models'
+import {
+	ICreateEventRequest,
+	ICreateEventTypeRequest,
+	IGetEventsRequest
+} from '@/api/events/events.models'
 import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
 
