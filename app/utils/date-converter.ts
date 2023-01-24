@@ -3,7 +3,7 @@ import moment from 'moment'
 // for backend
 
 export const formatDate = (date: Date) => {
-	return date.toISOString().replace('Z', '+03:00')
+	return moment(date).format('YYYY-MM-DD') + 'T00:00:00.000+00:00'
 }
 
 // from backend

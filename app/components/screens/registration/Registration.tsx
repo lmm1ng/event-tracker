@@ -29,7 +29,6 @@ export const Registration: FC = () => {
 			if (registrationForm.password === registrationForm.repeatPassword) {
 				const { repeatPassword, ...requestData } = registrationForm
 				api.auth.register(requestData).then(res => {
-					console.log(res)
 					auth.login(res.data.session)
 					setRegistrationForm({
 						username: '',
