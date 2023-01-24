@@ -1,4 +1,7 @@
+import moment from 'moment'
+
 // for backend
+
 export const formatDate = (date: Date) => {
 	return date.toISOString().replace('Z', '+03:00')
 }
@@ -10,4 +13,12 @@ export const trimDate = (date: Date) => {
 	const day = date.getDate().toString().padStart(2, '0')
 
 	return `${year}-${month}-${day}`
+}
+
+export const fromNow = (date: string) => {
+	return moment(date).from(moment())
+}
+
+export const dateString = (date: string) => {
+	return moment(date).format('D MMM YY')
 }

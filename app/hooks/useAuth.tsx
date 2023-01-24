@@ -34,17 +34,17 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 	useEffect(() => {
 		get('token').then(token => {
 			setToken(token || null)
-			if (token) {
-				api.auth.getMyProfile(token).then(res => {
-					setUser(res.data)
-				})
-			}
 		})
 	}, [])
 
 	useEffect(() => {
 		if (token) {
 			save('token', token)
+			api.auth.getMyProfile(token).then(res => {
+				setUser(res.data)
+			})
+		} else {
+			setUser(null)
 		}
 	}, [token])
 

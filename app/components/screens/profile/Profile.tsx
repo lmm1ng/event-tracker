@@ -3,19 +3,25 @@ import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { UIButton } from '@/components/ui/button/UI-button'
 import { UICard } from '@/components/ui/card/UI-card'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
-import { FC } from 'react'
+import { UserContext } from '@/hooks/useUser'
+import { FC, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 export const Profile: FC = () => {
+	const { user } = useContext(UserContext)
 	const nav = useTypedNavigation()
 	return (
 		<MainLayout>
 			<View style={styles.wrapper}>
-				<Avatar size='big' />
+				<Avatar
+					user={user}
+					size='big'
+				/>
 				<UICard style={[styles.buttons, { padding: 30 }]}>
 					<UIButton
 						text='Friends'
 						style={{ marginBottom: 20 }}
+						onPress={() => nav.navigate('Friends')}
 					/>
 					<UIButton
 						text='Events'

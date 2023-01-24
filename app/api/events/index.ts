@@ -6,6 +6,7 @@ import {
 import { Token, request } from '@/api/request'
 import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
+import { IFeedElement } from '@/models/feed'
 
 export default {
 	getEvents(data: IGetEventsRequest, token: Token) {
@@ -35,6 +36,13 @@ export default {
 	getEventTypes(token: Token) {
 		return request<IEventType[]>({
 			url: 'api/v1/events/types',
+			method: 'GET',
+			token
+		})
+	},
+	getFeed(token: Token) {
+		return request<IFeedElement[]>({
+			url: 'api/v1/events/feed',
 			method: 'GET',
 			token
 		})

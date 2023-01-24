@@ -1,10 +1,13 @@
-export interface IUser {
+export interface IPublicUser {
+	id: number
+	displayedName: string
+	profileImage: string
+}
+
+export interface IUser extends IPublicUser {
 	createdAt: string
 	deletedAt: string
-	displayedName: string
 	email: string
-	id: number
-	profileImage: string
 	updatedAt: string
 	username: string
 }

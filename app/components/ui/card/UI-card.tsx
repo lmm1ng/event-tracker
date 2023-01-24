@@ -1,3 +1,4 @@
+import { UIDivider } from '@/components/ui/divider/UI-divider'
 import { Text } from '@/components/ui/text/Text'
 import { THEME } from '@/theme/theme'
 import { FC } from 'react'
@@ -5,19 +6,21 @@ import { StyleSheet, View, ViewProps } from 'react-native'
 
 interface ICardProps extends ViewProps {
 	title?: string
+	withDivider?: boolean
 }
 
 export const UICard: FC<ICardProps> = ({
 	children,
 	style: outerStyle,
-	title = ''
+	title = '',
+	withDivider = true
 }) => {
 	return (
 		<View style={[styles.wrapper, outerStyle]}>
 			{title ? (
 				<>
 					<Text style={styles.title}>{title}</Text>
-					<View style={styles.divider} />
+					{withDivider && <UIDivider />}
 				</>
 			) : null}
 			{children}
@@ -31,13 +34,6 @@ const styles = StyleSheet.create({
 		backgroundColor: THEME.inputBackgroundColor,
 		borderRadius: THEME.borderRadius,
 		padding: 10
-	},
-	divider: {
-		width: '100%',
-		height: 0.5,
-		backgroundColor: THEME.textColor,
-		marginTop: 5,
-		marginBottom: 10
 	},
 	title: {
 		textAlign: 'center',
