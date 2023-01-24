@@ -1,14 +1,12 @@
 import { RootRoutesParams } from '@/Entry'
+import { useCurrentRoute } from '@/hooks/useCurrentRoute'
 import { THEME } from '@/theme/theme'
-import { navigate } from '@/utils/rootNavigation'
+import { navigate, navigationRef } from '@/utils/rootNavigation'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export const BottomMenu: FC = () => {
-	const [currentRoute, setCurrentRoute] =
-		useState<keyof RootRoutesParams>('Home')
-
 	const menuItems: {
 		id: number
 		name: string
@@ -31,8 +29,9 @@ export const BottomMenu: FC = () => {
 
 	const onNavigate = (routeName: keyof RootRoutesParams) => {
 		navigate(routeName, {} as never)
-		setCurrentRoute(routeName)
 	}
+
+	const currentRoute = useCurrentRoute()
 
 	return (
 		<View style={styles.wrapper}>

@@ -1,5 +1,6 @@
 import { RootRoutesParams } from '@/Entry'
 import {
+	NavigationContainerEventMap,
 	NavigationContainerRef,
 	createNavigationContainerRef
 } from '@react-navigation/native'
