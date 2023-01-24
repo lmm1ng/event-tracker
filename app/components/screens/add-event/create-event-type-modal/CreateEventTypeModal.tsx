@@ -16,7 +16,7 @@ export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({
 }) => {
 	const { token } = useContext(AuthContext)
 
-	const [isTypeVisible, setTypeVisible] = useState(false)
+	const [isTypeVisible, setTypeVisible] = useState(true)
 	const [eventTypeName, setEventTypeName] = useState('')
 
 	const submitModal = () => {

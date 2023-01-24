@@ -2,6 +2,7 @@ import api from '@/api'
 import { FeedElement } from '@/components/screens/home/feed/feed-element/FeedElement'
 import { UICard } from '@/components/ui/card/UI-card'
 import { UIDivider } from '@/components/ui/divider/UI-divider'
+import { Text } from '@/components/ui/text/Text'
 import { AuthContext } from '@/hooks/useAuth'
 import { IFeedElement } from '@/models/feed'
 import { IPublicUser } from '@/models/user'
@@ -33,18 +34,20 @@ export const Feed: FC = () => {
 			title='Feed'
 			withDivider={false}
 		>
-			{feed.length && friends.length
-				? feed.map((feedEl, i, arr) => (
-						<View key={feedEl.eventId}>
-							<FeedElement
-								feedElement={feedEl}
-								user={friends.find(friend => friend.id === feedEl.userId)}
-								style={[i !== arr.length - 1 && { marginBottom: 15 }]}
-							/>
-							{i !== arr.length - 1 && <UIDivider />}
-						</View>
-				  ))
-				: null}
+			{feed.length && friends.length ? (
+				feed.map((feedEl, i, arr) => (
+					<View key={feedEl.eventId}>
+						<FeedElement
+							feedElement={feedEl}
+							user={friends.find(friend => friend.id === feedEl.userId)}
+							style={[i !== arr.length - 1 && { marginBottom: 15 }]}
+						/>
+						{i !== arr.length - 1 && <UIDivider />}
+					</View>
+				))
+			) : (
+				<Text>No friend activity</Text>
+			)}
 		</UICard>
 	)
 }

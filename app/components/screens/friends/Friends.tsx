@@ -1,5 +1,6 @@
 import api from '@/api'
 import { MainLayout } from '@/components/layouts/main/MainLayout'
+import { AddFriendModal } from '@/components/screens/friends/add-friend-modal/AddFriendModal'
 import { FriendsList } from '@/components/screens/friends/friends-list/FriendsList'
 import { InvitesList } from '@/components/screens/friends/invites-list/InvitesList'
 import { UIButton } from '@/components/ui/button/UI-button'
@@ -39,16 +40,25 @@ export const Friends: FC = () => {
 		}, [])
 	)
 
+	const [isAddFriendModal, setAddFriendModal] = useState(false)
+
 	return (
 		<MainLayout>
-			<InvitesList
-				invites={invites}
-				onAcceptInvite={onAcceptInvite}
-				onCancelInvite={onCancelInvite}
+			<AddFriendModal
+				show={isAddFriendModal}
+				close={() => setAddFriendModal(false)}
 			/>
+			{invites.length ? (
+				<InvitesList
+					invites={invites}
+					onAcceptInvite={onAcceptInvite}
+					onCancelInvite={onCancelInvite}
+				/>
+			) : null}
 			<UIButton
 				style={styles.addButton}
 				text='Add friend'
+				onPress={() => setAddFriendModal(true)}
 			/>
 			<FriendsList friends={friends} />
 		</MainLayout>
@@ -57,6 +67,6 @@ export const Friends: FC = () => {
 
 const styles = StyleSheet.create({
 	addButton: {
-		marginVertical: 10
+		marginVertical: 20
 	}
 })

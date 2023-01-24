@@ -3,7 +3,7 @@ export interface ILoginRequest {
 	password: string
 }
 
-export interface ILoginResponse {
+export interface IAuthResponse {
 	createdAt: string
 	deletedAt: string
 	id: number
@@ -11,4 +11,10 @@ export interface ILoginResponse {
 	sessionHash: string
 	updatedAt: string
 	userId: number
+}
+
+export interface IRegistrationRequest {
+	displayedName: string
+	username: string
+	password: string
 }

@@ -1,6 +1,6 @@
 export const THEME = {
 	primaryColor: '#FAAC14',
-	secondaryColor: '#660D90',
+	secondaryColor: '#57A6FF',
 	dangerColor: '#DC3444',
 
 	screenBackgroundColor: '#27232A',

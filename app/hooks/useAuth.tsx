@@ -56,7 +56,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
 	const logout = () => {
 		setToken(null)
-		setUser(null)
 		deleteKey('token')
 	}
 

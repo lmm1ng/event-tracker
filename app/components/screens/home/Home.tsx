@@ -75,6 +75,7 @@ export const Home: FC = ({}) => {
 					eventTypes={eventTypes}
 					variant='big'
 					header={false}
+					style={{ marginBottom: 15 }}
 				/>
 				<Feed />
 			</View>

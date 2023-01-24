@@ -1,9 +1,11 @@
+import { BottomMenu } from '@/components/layouts/main/bottom-menu/BottomMenu'
 import { AddEvent } from '@/components/screens/add-event/AddEvent'
 import { Friends } from '@/components/screens/friends/Friends'
 import { Home } from '@/components/screens/home/Home'
 import { Login } from '@/components/screens/login/Login'
 import { MonthCalendar } from '@/components/screens/month-calendar/MonthCalendar'
 import { Profile } from '@/components/screens/profile/Profile'
+import { Registration } from '@/components/screens/registration/Registration'
 import { AuthContext } from '@/hooks/useAuth'
 import { THEME } from '@/theme/theme'
 import { navigationRef } from '@/utils/rootNavigation'
@@ -15,11 +17,13 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useContext } from 'react'
 import { View } from 'react-native'
+import Toast from 'react-native-toast-message'
 
 export type RootRoutesParams = {
 	Home: undefined
 	MonthCalendar: undefined
 	Login: undefined
+	Registration: undefined
 	AddEvent: {
 		initialDate: Date
 	}
@@ -42,6 +46,12 @@ const routes = [
 		name='Login'
 		key='Login'
 		component={Login}
+		options={{ headerShown: false }}
+	/>,
+	<Stack.Screen
+		name='Registration'
+		key='Registration'
+		component={Registration}
 		options={{ headerShown: false }}
 	/>
 ]
@@ -94,7 +104,7 @@ export const Entry = () => {
 			>
 				<Stack.Navigator>
 					{isAuth ? (
-						<Stack.Group screenOptions={{ animation: 'fade' }}>
+						<Stack.Group screenOptions={{ animation: 'slide_from_right' }}>
 							{protectedRoutes}
 							{routes}
 						</Stack.Group>
@@ -103,6 +113,7 @@ export const Entry = () => {
 					)}
 				</Stack.Navigator>
 			</NavigationContainer>
+			<Toast />
 		</View>
 	)
 }

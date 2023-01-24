@@ -21,6 +21,7 @@ export default {
 		return request({
 			url: 'api/v1/friends/invites',
 			method: 'POST',
+			data,
 			token
 		})
 	},

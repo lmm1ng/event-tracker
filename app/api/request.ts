@@ -1,7 +1,9 @@
+import { raiseError } from '@/utils/toast'
 import { isLoginScreenFocused, navigate } from '@/utils/rootNavigation'
 import type { RawAxiosRequestConfig } from 'axios'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import Constants from 'expo-constants'
+import Toast from 'react-native-toast-message'
 
 export type Token = string | null
 
@@ -22,11 +24,15 @@ axios.interceptors.response.use(
 	response => {
 		return response.data
 	},
-	error => {
+	(error: AxiosError) => {
 		if (error?.response?.status === 401) {
 			if (!isLoginScreenFocused()) {
 				navigate('Login', undefined)
 			}
+		} else {
+			raiseError({
+				message: (error.response?.data as string | undefined) || 'Server error'
+			})
 		}
 
 		return Promise.reject(error)

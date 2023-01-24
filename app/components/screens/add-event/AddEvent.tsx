@@ -94,11 +94,13 @@ export const AddEvent: FC<
 					/>
 					{currentDate.toDateString()}
 				</Text>
-				<UIInput
-					onChangeText={setSearchBoxValue}
-					icon='search1'
-					value={searchBoxValue}
-				/>
+				{filteredTypes.length ? (
+					<UIInput
+						onChangeText={setSearchBoxValue}
+						icon='search1'
+						value={searchBoxValue}
+					/>
+				) : null}
 				<ScrollView style={{ flex: 1, marginTop: 20 }}>
 					<EventsTypesList
 						types={filteredTypes}

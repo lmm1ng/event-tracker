@@ -4,9 +4,9 @@ import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
 import { hashColor } from '@/utils/hash-color'
 import { FC, useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, ViewProps } from 'react-native'
 
-interface IEventsLegendProps {
+interface IEventsLegendProps extends ViewProps {
 	events: IEvent[]
 	eventTypes: IEventType[]
 	variant?: 'normal' | 'big'
@@ -17,7 +17,8 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 	events,
 	eventTypes,
 	variant = 'normal',
-	header = true
+	header = true,
+	style: outerStyle
 }) => {
 	const eventTypeMap = useMemo(() => {
 		return eventTypes.reduce((acc, cur) => {
@@ -27,42 +28,49 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 	}, [eventTypes])
 
 	return (
-		<UICard title={header ? 'Events' : ''}>
-			<View
-				style={{
-					...styles.wrapper,
-					flexDirection: variant === 'normal' ? 'row' : 'column'
-				}}
-			>
-				{events
-					.filter(
-						(el, i, arr) =>
-							arr.findIndex(ev => ev.eventTypeId === el.eventTypeId) === i
-					)
-					.map(el => (
-						<View
-							style={{
-								...styles.event,
-								width: variant === 'normal' ? '33%' : '100%'
-							}}
-							key={el.id}
-						>
+		<UICard
+			title={header ? 'Events' : ''}
+			style={outerStyle}
+		>
+			{events.length ? (
+				<View
+					style={{
+						...styles.wrapper,
+						flexDirection: variant === 'normal' ? 'row' : 'column'
+					}}
+				>
+					{events
+						.filter(
+							(el, i, arr) =>
+								arr.findIndex(ev => ev.eventTypeId === el.eventTypeId) === i
+						)
+						.map(el => (
 							<View
 								style={{
-									...styles[`${variant}Dot`],
-									backgroundColor: hashColor(el.eventTypeId.toString())
+									...styles.event,
+									width: variant === 'normal' ? '33%' : '100%'
 								}}
-							/>
-							<Text
-								style={{
-									fontSize: variant === 'big' ? 20 : undefined
-								}}
+								key={el.id}
 							>
-								{eventTypeMap[el.eventTypeId]?.eventType || ''}
-							</Text>
-						</View>
-					))}
-			</View>
+								<View
+									style={{
+										...styles[`${variant}Dot`],
+										backgroundColor: hashColor(el.eventTypeId.toString())
+									}}
+								/>
+								<Text
+									style={{
+										fontSize: variant === 'big' ? 20 : undefined
+									}}
+								>
+									{eventTypeMap[el.eventTypeId]?.eventType || ''}
+								</Text>
+							</View>
+						))}
+				</View>
+			) : (
+				<Text>No events</Text>
+			)}
 		</UICard>
 	)
 }

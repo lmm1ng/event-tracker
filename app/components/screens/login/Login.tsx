@@ -3,16 +3,16 @@ import { ILoginRequest } from '@/api/auth/auth.models'
 import { AuthLayout } from '@/components/layouts/auth/AuthLayout'
 import { UIButton } from '@/components/ui/button/UI-button'
 import { UIInput } from '@/components/ui/input/UI-input'
+import { Text } from '@/components/ui/text/Text'
 import { AuthContext } from '@/hooks/useAuth'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
-import { UserContext } from '@/hooks/useUser'
+import { THEME } from '@/theme/theme'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 
 export const Login: FC = () => {
 	const auth = useContext(AuthContext)
-	const { setUser } = useContext(UserContext)
 
 	useFocusEffect(
 		useCallback(() => {
@@ -42,6 +42,10 @@ export const Login: FC = () => {
 		}
 	}
 
+	const goToRegistration = () => {
+		nav.navigate('Registration')
+	}
+
 	return (
 		<AuthLayout>
 			<View style={styles.wrapper}>
@@ -63,9 +67,18 @@ export const Login: FC = () => {
 					style={{ marginBottom: 30 }}
 				/>
 				<UIButton
-					text='Войти'
+					text='Login'
 					onPress={() => login()}
+					style={{ marginBottom: 30 }}
 				/>
+				<Pressable
+					style={{ alignSelf: 'flex-end' }}
+					onPress={() => goToRegistration()}
+				>
+					<Text style={{ color: THEME.secondaryColor }}>
+						Not registered yet?
+					</Text>
+				</Pressable>
 			</View>
 		</AuthLayout>
 	)
@@ -74,7 +87,6 @@ export const Login: FC = () => {
 const styles = StyleSheet.create({
 	wrapper: {
 		height: '100%',
-		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
 	}
