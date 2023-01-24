@@ -1,4 +1,4 @@
-import { BottomMenu } from '@/components/layouts/main/bottom-menu/BottomMenu'
+import { BottomMenu } from '@/components/bottom-menu/BottomMenu'
 import { AddEvent } from '@/components/screens/add-event/AddEvent'
 import { Friends } from '@/components/screens/friends/Friends'
 import { Home } from '@/components/screens/home/Home'
@@ -16,7 +16,8 @@ import {
 } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useContext } from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Toast from 'react-native-toast-message'
 
 export type RootRoutesParams = {
@@ -91,29 +92,48 @@ const protectedRoutes = [
 
 export const Entry = () => {
 	const { isAuth } = useContext(AuthContext)
+	const insets = useSafeAreaInsets()
 	return (
-		<View
-			style={{
-				width: '100%',
-				height: '100%'
-			}}
-		>
-			<NavigationContainer
-				ref={navigationRef}
-				theme={customTheme}
+		<View style={styles.layout}>
+			<View
+				style={[
+					styles.content,
+					{
+						paddingTop: insets.top + 20,
+						paddingBottom: insets.bottom + 20
+					}
+				]}
 			>
-				<Stack.Navigator>
-					{isAuth ? (
-						<Stack.Group screenOptions={{ animation: 'slide_from_right' }}>
-							{protectedRoutes}
-							{routes}
-						</Stack.Group>
-					) : (
-						<Stack.Group>{routes}</Stack.Group>
-					)}
-				</Stack.Navigator>
-			</NavigationContainer>
-			<Toast />
+				<NavigationContainer
+					ref={navigationRef}
+					theme={customTheme}
+				>
+					<Stack.Navigator>
+						{isAuth ? (
+							<Stack.Group screenOptions={{ animation: 'fade' }}>
+								{protectedRoutes}
+								{routes}
+							</Stack.Group>
+						) : (
+							<Stack.Group>{routes}</Stack.Group>
+						)}
+					</Stack.Navigator>
+				</NavigationContainer>
+				<Toast />
+			</View>
+			{isAuth && <BottomMenu />}
 		</View>
 	)
 }
+
+const styles = StyleSheet.create({
+	layout: {
+		width: '100%',
+		height: '100%',
+		backgroundColor: THEME.screenBackgroundColor
+	},
+	content: {
+		flex: 1,
+		padding: 20
+	}
+})

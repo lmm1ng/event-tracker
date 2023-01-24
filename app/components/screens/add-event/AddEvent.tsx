@@ -1,6 +1,5 @@
 import { RootRoutesParams } from '@/Entry'
 import api from '@/api'
-import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { CreateEventTypeModal } from '@/components/screens/add-event/create-event-type-modal/CreateEventTypeModal'
 import { EventsTypesList } from '@/components/screens/add-event/event-types-list/EventsTypesList'
 import { UIButton } from '@/components/ui/button/UI-button'
@@ -69,7 +68,7 @@ export const AddEvent: FC<
 
 	const [isCreateEventTypeModal, setCreateEventTypeModal] = useState(false)
 	return (
-		<MainLayout>
+		<>
 			<UIModal
 				show={isChangeCurrentDateModal}
 				onClose={() => setCurrentDateModal(false)}
@@ -120,7 +119,7 @@ export const AddEvent: FC<
 					onPress={() => createEvent()}
 				/>
 			</View>
-		</MainLayout>
+		</>
 	)
 }
 

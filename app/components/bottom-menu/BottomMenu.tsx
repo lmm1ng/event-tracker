@@ -1,14 +1,14 @@
 import { RootRoutesParams } from '@/Entry'
-import { useTypedNavigation } from '@/hooks/useTypedNavigation'
 import { THEME } from '@/theme/theme'
+import { navigate } from '@/utils/rootNavigation'
 import AntDesign from '@expo/vector-icons/AntDesign'
-import { useRoute } from '@react-navigation/native'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export const BottomMenu: FC = () => {
-	const nav = useTypedNavigation()
-	const route = useRoute()
+	const [currentRoute, setCurrentRoute] =
+		useState<keyof RootRoutesParams>('Home')
+
 	const menuItems: {
 		id: number
 		name: string
@@ -29,19 +29,24 @@ export const BottomMenu: FC = () => {
 		}
 	]
 
+	const onNavigate = (routeName: keyof RootRoutesParams) => {
+		navigate(routeName, {} as never)
+		setCurrentRoute(routeName)
+	}
+
 	return (
 		<View style={styles.wrapper}>
 			{menuItems.map(el => (
 				<TouchableOpacity
 					key={el.id}
-					onPress={() => nav.navigate(el.routeName, {} as never)}
+					onPress={() => onNavigate(el.routeName)}
 				>
 					<AntDesign
 						// @ts-ignore
 						name={el.name}
 						size={25}
 						color={
-							el.selectedFor.includes(route.name)
+							el.selectedFor.includes(currentRoute)
 								? THEME.primaryColor
 								: THEME.textColor
 						}

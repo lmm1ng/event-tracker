@@ -1,6 +1,5 @@
 import api from '@/api'
 import { EventsLegend } from '@/components/events-legend/EventsLegend'
-import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { UICalendar } from '@/components/ui/calendar/UI-calendar'
 import { PeriodTypes } from '@/constants/periodTypes'
 import { AuthContext } from '@/hooks/useAuth'
@@ -10,7 +9,6 @@ import { formatDate, trimDate } from '@/utils/date-converter'
 import { hashColor } from '@/utils/hash-color'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useMemo, useState } from 'react'
-import { View } from 'react-native'
 import { DateData } from 'react-native-calendars/src'
 
 export const MonthCalendar: FC = () => {
@@ -65,8 +63,7 @@ export const MonthCalendar: FC = () => {
 	}, [eventsList])
 
 	return (
-		<MainLayout>
-			<View>
+			<>
 				<UICalendar
 					maxDate={trimDate(new Date())}
 					markingType={'multi-dot'}
@@ -82,7 +79,6 @@ export const MonthCalendar: FC = () => {
 					events={eventsList}
 					eventTypes={eventTypes}
 				/>
-			</View>
-		</MainLayout>
+			</>
 	)
 }

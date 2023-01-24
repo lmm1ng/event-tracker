@@ -1,5 +1,4 @@
 import { Avatar } from '@/components/avatar/Avatar'
-import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { UIButton } from '@/components/ui/button/UI-button'
 import { UICard } from '@/components/ui/card/UI-card'
 import { AuthContext } from '@/hooks/useAuth'
@@ -18,36 +17,34 @@ export const Profile: FC = () => {
 		nav.navigate('Login')
 	}
 	return (
-		<MainLayout>
-			<View style={styles.wrapper}>
-				<Avatar
-					user={user}
-					size='big'
+		<View style={styles.wrapper}>
+			<Avatar
+				user={user}
+				size='big'
+			/>
+			<UICard style={[styles.buttons, { padding: 30 }]}>
+				<UIButton
+					text='Friends'
+					style={{ marginBottom: 20 }}
+					onPress={() => nav.navigate('Friends')}
 				/>
-				<UICard style={[styles.buttons, { padding: 30 }]}>
-					<UIButton
-						text='Friends'
-						style={{ marginBottom: 20 }}
-						onPress={() => nav.navigate('Friends')}
-					/>
-					<UIButton
-						text='Events'
-						disabled
-						style={{ marginBottom: 20 }}
-					/>
-					<UIButton
-						text='Settings'
-						disabled
-						style={{ marginBottom: 50 }}
-					/>
-					<UIButton
-						text='Logout'
-						variant='secondary'
-						onPress={() => makeLogout()}
-					/>
-				</UICard>
-			</View>
-		</MainLayout>
+				<UIButton
+					text='Events'
+					disabled
+					style={{ marginBottom: 20 }}
+				/>
+				<UIButton
+					text='Settings'
+					disabled
+					style={{ marginBottom: 50 }}
+				/>
+				<UIButton
+					text='Logout'
+					variant='secondary'
+					onPress={() => makeLogout()}
+				/>
+			</UICard>
+		</View>
 	)
 }
 

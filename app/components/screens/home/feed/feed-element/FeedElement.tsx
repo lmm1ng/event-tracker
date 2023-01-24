@@ -45,7 +45,7 @@ export const FeedElement: FC<IFeedElementProps> = ({
 							/>
 							<Text>{feedElement.eventType}</Text>
 						</View>
-						<Text>{dateString(feedElement.date)}</Text>
+						<Text>{dateString({ date: feedElement.date })}</Text>
 					</View>
 				</View>
 			) : null}

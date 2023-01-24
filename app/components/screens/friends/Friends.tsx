@@ -1,5 +1,4 @@
 import api from '@/api'
-import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { AddFriendModal } from '@/components/screens/friends/add-friend-modal/AddFriendModal'
 import { FriendsList } from '@/components/screens/friends/friends-list/FriendsList'
 import { InvitesList } from '@/components/screens/friends/invites-list/InvitesList'
@@ -43,7 +42,7 @@ export const Friends: FC = () => {
 	const [isAddFriendModal, setAddFriendModal] = useState(false)
 
 	return (
-		<MainLayout>
+		<>
 			<AddFriendModal
 				show={isAddFriendModal}
 				close={() => setAddFriendModal(false)}
@@ -61,7 +60,7 @@ export const Friends: FC = () => {
 				onPress={() => setAddFriendModal(true)}
 			/>
 			<FriendsList friends={friends} />
-		</MainLayout>
+		</>
 	)
 }
 

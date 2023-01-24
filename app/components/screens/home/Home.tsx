@@ -1,7 +1,6 @@
 import api from '@/api'
 import { Avatar } from '@/components/avatar/Avatar'
 import { EventsLegend } from '@/components/events-legend/EventsLegend'
-import { MainLayout } from '@/components/layouts/main/MainLayout'
 import { Feed } from '@/components/screens/home/feed/Feed'
 import { Text } from '@/components/ui/text/Text'
 import { PeriodTypes } from '@/constants/periodTypes'
@@ -11,7 +10,7 @@ import { UserContext } from '@/hooks/useUser'
 import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
 import { THEME } from '@/theme/theme'
-import { formatDate } from '@/utils/date-converter'
+import { dateString, formatDate } from '@/utils/date-converter'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useEffect, useState } from 'react'
@@ -62,13 +61,15 @@ export const Home: FC = ({}) => {
 	}
 
 	return (
-		<MainLayout>
+		<>
 			<Avatar
 				user={user}
 				onPress={() => goToProfile()}
 				styles={{ marginTop: 20, alignSelf: 'flex-end' }}
 			/>
-			<Text style={styles.dateText}>{currentDate.toDateString()}</Text>
+			<Text style={styles.dateText}>
+				{dateString({ date: currentDate, variant: 'full' })}
+			</Text>
 			<View style={{ flex: 1 }}>
 				<EventsLegend
 					events={eventsList}
@@ -88,7 +89,7 @@ export const Home: FC = ({}) => {
 					/>
 				</TouchableOpacity>
 			</View>
-		</MainLayout>
+		</>
 	)
 }
 

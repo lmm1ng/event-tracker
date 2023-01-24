@@ -19,6 +19,12 @@ export const fromNow = (date: string) => {
 	return moment(date).from(moment())
 }
 
-export const dateString = (date: string) => {
-	return moment(date).format('D MMM YY')
+export const dateString = ({
+	date,
+	variant = 'short'
+}: {
+	date: string | Date
+	variant?: 'short' | 'full'
+}) => {
+	return moment(date).format(variant === 'short' ? 'D MMM YY' : 'DD MMMM YYYY')
 }

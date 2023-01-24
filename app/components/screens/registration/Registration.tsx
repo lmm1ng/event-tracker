@@ -1,6 +1,5 @@
 import api from '@/api'
 import { IRegistrationRequest } from '@/api/auth/auth.models'
-import { AuthLayout } from '@/components/layouts/auth/AuthLayout'
 import { UIButton } from '@/components/ui/button/UI-button'
 import { UIInput } from '@/components/ui/input/UI-input'
 import { Text } from '@/components/ui/text/Text'
@@ -51,57 +50,55 @@ export const Registration: FC = () => {
 	}
 
 	return (
-		<AuthLayout>
-			<View style={styles.wrapper}>
-				<UIInput
-					label='Login'
-					value={registrationForm.username}
-					onChangeText={text =>
-						setRegistrationForm(prev => ({ ...prev, username: text }))
-					}
-					style={{ marginBottom: 10 }}
-				/>
-				<UIInput
-					label='Display name'
-					value={registrationForm.displayedName}
-					onChangeText={text =>
-						setRegistrationForm(prev => ({ ...prev, displayedName: text }))
-					}
-					style={{ marginBottom: 10 }}
-				/>
-				<UIInput
-					label='Password'
-					password
-					value={registrationForm.password}
-					onChangeText={text =>
-						setRegistrationForm(prev => ({ ...prev, password: text }))
-					}
-					style={{ marginBottom: 10 }}
-				/>
-				<UIInput
-					label='Repeat password'
-					password
-					value={registrationForm.repeatPassword}
-					onChangeText={text =>
-						setRegistrationForm(prev => ({ ...prev, repeatPassword: text }))
-					}
-					style={{ marginBottom: 30 }}
-				/>
-				<UIButton
-					text='Register'
-					style={{ marginBottom: 30 }}
-					onPress={() => register()}
-				/>
-				<Pressable style={{ alignSelf: 'flex-end' }}>
-					<Text
-						style={{ color: THEME.secondaryColor }}
-						onPress={() => goToLogin()}
-					>
-						Already registered?
-					</Text>
-				</Pressable>
-			</View>
-		</AuthLayout>
+		<View style={styles.wrapper}>
+			<UIInput
+				label='Login'
+				value={registrationForm.username}
+				onChangeText={text =>
+					setRegistrationForm(prev => ({ ...prev, username: text }))
+				}
+				style={{ marginBottom: 10 }}
+			/>
+			<UIInput
+				label='Display name'
+				value={registrationForm.displayedName}
+				onChangeText={text =>
+					setRegistrationForm(prev => ({ ...prev, displayedName: text }))
+				}
+				style={{ marginBottom: 10 }}
+			/>
+			<UIInput
+				label='Password'
+				password
+				value={registrationForm.password}
+				onChangeText={text =>
+					setRegistrationForm(prev => ({ ...prev, password: text }))
+				}
+				style={{ marginBottom: 10 }}
+			/>
+			<UIInput
+				label='Repeat password'
+				password
+				value={registrationForm.repeatPassword}
+				onChangeText={text =>
+					setRegistrationForm(prev => ({ ...prev, repeatPassword: text }))
+				}
+				style={{ marginBottom: 30 }}
+			/>
+			<UIButton
+				text='Register'
+				style={{ marginBottom: 30 }}
+				onPress={() => register()}
+			/>
+			<Pressable style={{ alignSelf: 'flex-end' }}>
+				<Text
+					style={{ color: THEME.secondaryColor }}
+					onPress={() => goToLogin()}
+				>
+					Already registered?
+				</Text>
+			</Pressable>
+		</View>
 	)
 }
 

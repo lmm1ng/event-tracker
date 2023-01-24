@@ -1,6 +1,5 @@
 import api from '@/api'
 import { ILoginRequest } from '@/api/auth/auth.models'
-import { AuthLayout } from '@/components/layouts/auth/AuthLayout'
 import { UIButton } from '@/components/ui/button/UI-button'
 import { UIInput } from '@/components/ui/input/UI-input'
 import { Text } from '@/components/ui/text/Text'
@@ -47,40 +46,36 @@ export const Login: FC = () => {
 	}
 
 	return (
-		<AuthLayout>
-			<View style={styles.wrapper}>
-				<UIInput
-					label='Login'
-					value={loginForm.username}
-					onChangeText={text =>
-						setLoginForm(prev => ({ ...prev, username: text }))
-					}
-					style={{ marginBottom: 10 }}
-				/>
-				<UIInput
-					label='Password'
-					password
-					value={loginForm.password}
-					onChangeText={text =>
-						setLoginForm(prev => ({ ...prev, password: text }))
-					}
-					style={{ marginBottom: 30 }}
-				/>
-				<UIButton
-					text='Login'
-					onPress={() => login()}
-					style={{ marginBottom: 30 }}
-				/>
-				<Pressable
-					style={{ alignSelf: 'flex-end' }}
-					onPress={() => goToRegistration()}
-				>
-					<Text style={{ color: THEME.secondaryColor }}>
-						Not registered yet?
-					</Text>
-				</Pressable>
-			</View>
-		</AuthLayout>
+		<View style={styles.wrapper}>
+			<UIInput
+				label='Login'
+				value={loginForm.username}
+				onChangeText={text =>
+					setLoginForm(prev => ({ ...prev, username: text }))
+				}
+				style={{ marginBottom: 10 }}
+			/>
+			<UIInput
+				label='Password'
+				password
+				value={loginForm.password}
+				onChangeText={text =>
+					setLoginForm(prev => ({ ...prev, password: text }))
+				}
+				style={{ marginBottom: 30 }}
+			/>
+			<UIButton
+				text='Login'
+				onPress={() => login()}
+				style={{ marginBottom: 30 }}
+			/>
+			<Pressable
+				style={{ alignSelf: 'flex-end' }}
+				onPress={() => goToRegistration()}
+			>
+				<Text style={{ color: THEME.secondaryColor }}>Not registered yet?</Text>
+			</Pressable>
+		</View>
 	)
 }
 
