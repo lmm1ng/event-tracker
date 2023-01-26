@@ -11,10 +11,9 @@ import { IEvent } from '@/models/event'
 import { IEventType } from '@/models/eventType'
 import { THEME } from '@/theme/theme'
 import { dateString, formatDate } from '@/utils/date-converter'
-import AntDesign from '@expo/vector-icons/AntDesign'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 export const Home: FC = ({}) => {
 	const { token } = useContext(AuthContext)
@@ -52,10 +51,6 @@ export const Home: FC = ({}) => {
 		}, [])
 	)
 
-	const goToAddEvent = () => {
-		nav.navigate('AddEvent', { initialDate: currentDate })
-	}
-
 	const goToProfile = () => {
 		nav.navigate('Profile')
 	}
@@ -65,7 +60,10 @@ export const Home: FC = ({}) => {
 			<Avatar
 				user={user}
 				onPress={() => goToProfile()}
-				styles={{ marginTop: 20, alignSelf: 'flex-end' }}
+				styles={{
+					marginTop: 20,
+					alignSelf: 'flex-end'
+				}}
 			/>
 			<Text style={styles.dateText}>
 				{dateString({ date: currentDate, variant: 'full' })}
@@ -80,15 +78,6 @@ export const Home: FC = ({}) => {
 				/>
 				<Feed style={{ maxHeight: '70%' }} />
 			</View>
-			<View style={[styles.addEventButton]}>
-				<TouchableOpacity onPress={() => goToAddEvent()}>
-					<AntDesign
-						name='pluscircle'
-						color={THEME.primaryColor}
-						size={50}
-					/>
-				</TouchableOpacity>
-			</View>
 		</View>
 	)
 }
@@ -102,10 +91,5 @@ const styles = StyleSheet.create({
 		fontSize: THEME.fontSizeHeader + 8,
 		marginVertical: 10,
 		marginLeft: 10
-	},
-	addEventButton: {
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center'
 	}
 })

@@ -12,8 +12,16 @@ import { useTypedNavigation } from '@/hooks/useTypedNavigation'
 import { IEventType } from '@/models/eventType'
 import { formatDate, trimDate } from '@/utils/date-converter'
 import AntDesign from '@expo/vector-icons/AntDesign'
+import { useFocusEffect } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { FC, useContext, useEffect, useMemo, useState } from 'react'
+import {
+	FC,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState
+} from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { DateData } from 'react-native-calendars/src'
 
@@ -38,10 +46,6 @@ export const AddEvent: FC<
 		return api.events.getEventTypes(token).then(res => setEventTypes(res.data))
 	}
 
-	useEffect(() => {
-		updateEventTypes()
-	}, [])
-
 	const [searchBoxValue, setSearchBoxValue] = useState('')
 
 	const filteredTypes = useMemo(() => {
@@ -53,8 +57,21 @@ export const AddEvent: FC<
 	const [checkedType, setCheckedType] = useState(-1)
 
 	useEffect(() => {
+		updateEventTypes()
+	}, [])
+
+	useEffect(() => {
 		setCheckedType(-1)
 	}, [filteredTypes.length])
+
+	useFocusEffect(
+		useCallback(() => {
+			return () => {
+				setCheckedType(-1)
+				setSearchBoxValue('')
+			}
+		}, [])
+	)
 
 	const createEvent = () => {
 		api.events

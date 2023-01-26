@@ -63,22 +63,23 @@ export const MonthCalendar: FC = () => {
 	}, [eventsList])
 
 	return (
-			<>
-				<UICalendar
-					maxDate={trimDate(new Date())}
-					markingType={'multi-dot'}
-					// lib stuff error
-					// @ts-ignore
-					markedDates={markedDays}
-					onMonthChange={month => onMonthChange(month)}
-					enableSwipeMonths={true}
-					hideArrows={true}
-					style={{ marginBottom: 20 }}
-				/>
-				<EventsLegend
-					events={eventsList}
-					eventTypes={eventTypes}
-				/>
-			</>
+		<>
+			<UICalendar
+				maxDate={trimDate(new Date())}
+				markingType={'multi-dot'}
+				// lib stuff error
+				// @ts-ignore
+				markedDates={markedDays}
+				onMonthChange={month => onMonthChange(month)}
+				enableSwipeMonths={true}
+				hideArrows={true}
+				style={{ marginBottom: 20 }}
+			/>
+			<EventsLegend
+				events={eventsList}
+				eventTypes={eventTypes}
+				showUniq
+			/>
+		</>
 	)
 }

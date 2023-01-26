@@ -6,24 +6,42 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import { FC } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
+type Route<T extends keyof RootRoutesParams> = {
+	name: T
+	options?: RootRoutesParams[T]
+}
+
 export const BottomMenu: FC = () => {
 	const menuItems: {
 		id: number
 		name: string
-		routeName: keyof RootRoutesParams
+		route: Route<keyof RootRoutesParams>
 		selectedFor: string[]
 	}[] = [
 		{
 			id: 1,
 			name: 'calendar',
-			routeName: 'MonthCalendar',
+			route: {
+				name: 'MonthCalendar'
+			},
 			selectedFor: ['MonthCalendar']
 		},
 		{
 			id: 2,
+			name: 'plussquareo',
+			route: {
+				name: 'AddEvent',
+				options: { initialDate: new Date() }
+			},
+			selectedFor: ['AddEvent']
+		},
+		{
+			id: 3,
 			name: 'home',
-			routeName: 'Home',
-			selectedFor: ['Home', 'AddEvent', 'Profile', 'Friends']
+			route: {
+				name: 'Home'
+			},
+			selectedFor: ['Home', 'Profile', 'Friends']
 		}
 	]
 
@@ -38,12 +56,13 @@ export const BottomMenu: FC = () => {
 			{menuItems.map(el => (
 				<TouchableOpacity
 					key={el.id}
-					onPress={() => onNavigate(el.routeName)}
+					onPress={() => onNavigate(el.route.name)}
+					style={styles.menuItem}
 				>
 					<AntDesign
 						// @ts-ignore
 						name={el.name}
-						size={25}
+						size={27}
 						color={
 							el.selectedFor.includes(currentRoute)
 								? THEME.primaryColor
@@ -61,8 +80,14 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-		paddingBottom: 20,
-		paddingTop: 10,
+		height: 60,
+		alignItems: 'center',
 		backgroundColor: THEME.inputBackgroundColor
+	},
+	menuItem: {
+		width: 40,
+		height: 40,
+		alignItems: 'center',
+		justifyContent: 'center'
 	}
 })

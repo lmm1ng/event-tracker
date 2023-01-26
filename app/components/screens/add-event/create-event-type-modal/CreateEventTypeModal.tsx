@@ -31,7 +31,7 @@ export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({
 	}
 
 	const closeModal = () => {
-		setTypeVisible(() => false)
+		setTypeVisible(() => true)
 		setEventTypeName(() => '')
 		close()
 	}

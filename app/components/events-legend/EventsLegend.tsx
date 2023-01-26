@@ -10,6 +10,7 @@ interface IEventsLegendProps extends ViewProps {
 	events: IEvent[]
 	eventTypes: IEventType[]
 	variant?: 'normal' | 'big'
+	showUniq?: boolean
 	header?: boolean
 }
 
@@ -18,6 +19,7 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 	eventTypes,
 	variant = 'normal',
 	header = true,
+	showUniq = false,
 	style: outerStyle
 }) => {
 	const eventTypeMap = useMemo(() => {
@@ -41,9 +43,10 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 						}}
 					>
 						{events
-							.filter(
-								(el, i, arr) =>
-									arr.findIndex(ev => ev.eventTypeId === el.eventTypeId) === i
+							.filter((el, i, arr) =>
+								showUniq
+									? arr.findIndex(ev => ev.eventTypeId === el.eventTypeId) === i
+									: el
 							)
 							.map(el => (
 								<View

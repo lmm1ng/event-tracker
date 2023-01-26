@@ -28,8 +28,12 @@ export const Avatar: FC<IAvatarProps> = ({
 				<Pressable onPress={() => onPress && onPress()}>
 					<View style={[styles.wrapper, outerStyles]}>
 						{nameFirst ? (
-							<View style={{ marginRight: 10 }}>
-								<Text style={[styles[`${size}DisplayName`]]}>
+							<View style={{ marginRight: 10, maxWidth: '50%' }}>
+								<Text
+									numberOfLines={1}
+									ellipsizeMode='tail'
+									style={[styles[`${size}DisplayName`]]}
+								>
 									{user.displayedName}
 								</Text>
 								{subtext && <Text style={styles.subtext}>{subtext}</Text>}
@@ -53,8 +57,12 @@ export const Avatar: FC<IAvatarProps> = ({
 							</Text>
 						</View>
 						{!nameFirst ? (
-							<View style={{ marginLeft: 10 }}>
-								<Text style={[styles[`${size}DisplayName`]]}>
+							<View style={{ marginLeft: 10, maxWidth: '50%' }}>
+								<Text
+									numberOfLines={1}
+									ellipsizeMode='tail'
+									style={[styles[`${size}DisplayName`]]}
+								>
 									{user.displayedName}
 								</Text>
 								{subtext && <Text style={styles.subtext}>{subtext}</Text>}
