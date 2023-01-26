@@ -1,7 +1,9 @@
+import { EventTypesListElement } from '@/components/screens/add-event/event-types-list/event-types-list-element/EventTypesListElement'
 import { UICard } from '@/components/ui/card/UI-card'
 import { UICheckbox } from '@/components/ui/checkbox/UI-checkbox'
 import { Text } from '@/components/ui/text/Text'
 import { IEventType } from '@/models/eventType'
+import { hashColor } from '@/utils/hash-color'
 import { FC } from 'react'
 import { ScrollView, StyleSheet, View, ViewProps } from 'react-native'
 
@@ -22,20 +24,16 @@ export const EventsTypesList: FC<IEventsTypesListProps> = ({
 			<ScrollView>
 				{types.length ? (
 					types.map((type, id, arr) => (
-						<View
+						<EventTypesListElement
+							eventType={type}
+							checked={checked}
+							setChecked={setChecked}
 							style={[
 								styles.listItem,
 								id !== arr.length - 1 ? { marginBottom: 20 } : undefined
 							]}
 							key={type.id}
-						>
-							<UICheckbox
-								value={checked === type.id}
-								onToggle={() => setChecked(type.id)}
-								style={styles.checkbox}
-							/>
-							<Text>{type.eventType}</Text>
-						</View>
+						/>
 					))
 				) : (
 					<Text>No event types yet</Text>
@@ -47,9 +45,7 @@ export const EventsTypesList: FC<IEventsTypesListProps> = ({
 
 const styles = StyleSheet.create({
 	listItem: {
-		flexDirection: 'row'
-	},
-	checkbox: {
-		marginRight: 10
+		flexDirection: 'row',
+		alignItems: 'center'
 	}
 })

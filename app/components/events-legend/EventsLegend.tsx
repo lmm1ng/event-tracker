@@ -37,10 +37,12 @@ export const EventsLegend: FC<IEventsLegendProps> = ({
 			{events.length ? (
 				<ScrollView>
 					<View
-						style={{
-							...styles.wrapper,
-							flexDirection: variant === 'normal' ? 'row' : 'column'
-						}}
+						style={[
+							styles.wrapper,
+							{
+								flexDirection: variant === 'normal' ? 'row' : 'column'
+							}
+						]}
 					>
 						{events
 							.filter((el, i, arr) =>

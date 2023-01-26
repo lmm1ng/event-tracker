@@ -48,10 +48,10 @@ export const Avatar: FC<IAvatarProps> = ({
 							]}
 						>
 							<Text
-								style={{
-									...styles.placeholderText,
-									...styles[`${size}PlaceholderText`]
-								}}
+								style={[
+									styles.placeholderText,
+									styles[`${size}PlaceholderText`]
+								]}
 							>
 								{user.displayedName[0].toUpperCase()}
 							</Text>

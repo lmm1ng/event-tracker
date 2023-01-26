@@ -22,7 +22,7 @@ import {
 	useMemo,
 	useState
 } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { DateData } from 'react-native-calendars/src'
 
 export const AddEvent: FC<
@@ -133,7 +133,7 @@ export const AddEvent: FC<
 				<UIButton
 					text='Create event type'
 					variant='secondary'
-					style={{ alignSelf: 'flex-end', width: 200, marginBottom: 20 }}
+					style={styles.createEventTypeButton}
 					onPress={() => setCreateEventTypeModal(true)}
 				/>
 				<UIButton
@@ -155,5 +155,10 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		marginVertical: 20,
 		textAlign: 'center'
+	},
+	createEventTypeButton: {
+		alignSelf: 'flex-end',
+		width: 200,
+		marginBottom: 20
 	}
 })
