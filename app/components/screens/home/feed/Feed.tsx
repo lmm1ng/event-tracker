@@ -8,9 +8,11 @@ import { IFeedElement } from '@/models/feed'
 import { IPublicUser } from '@/models/user'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useState } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View, ViewProps } from 'react-native'
 
-export const Feed: FC = () => {
+interface IFeedProps extends ViewProps {}
+
+export const Feed: FC<IFeedProps> = ({ style: outerStyle }) => {
 	const { token } = useContext(AuthContext)
 	const [feed, setFeed] = useState<IFeedElement[]>([])
 	const [friends, setFriends] = useState<IPublicUser[]>([])
@@ -33,21 +35,24 @@ export const Feed: FC = () => {
 		<UICard
 			title='Feed'
 			withDivider={false}
+			style={outerStyle}
 		>
-			{feed.length && friends.length ? (
-				feed.map((feedEl, i, arr) => (
-					<View key={feedEl.eventId}>
-						<FeedElement
-							feedElement={feedEl}
-							user={friends.find(friend => friend.id === feedEl.userId)}
-							style={[i !== arr.length - 1 && { marginBottom: 15 }]}
-						/>
-						{i !== arr.length - 1 && <UIDivider />}
-					</View>
-				))
-			) : (
-				<Text>No friend activity</Text>
-			)}
+			<ScrollView>
+				{feed.length && friends.length ? (
+					feed.map((feedEl, i, arr) => (
+						<View key={feedEl.eventId}>
+							<FeedElement
+								feedElement={feedEl}
+								user={friends.find(friend => friend.id === feedEl.userId)}
+								style={[i !== arr.length - 1 && { marginBottom: 15 }]}
+							/>
+							{i !== arr.length - 1 && <UIDivider />}
+						</View>
+					))
+				) : (
+					<Text>No friend activity</Text>
+				)}
+			</ScrollView>
 		</UICard>
 	)
 }

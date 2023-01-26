@@ -14,7 +14,7 @@ import { dateString, formatDate } from '@/utils/date-converter'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useEffect, useState } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 export const Home: FC = ({}) => {
 	const { token } = useContext(AuthContext)
@@ -61,7 +61,7 @@ export const Home: FC = ({}) => {
 	}
 
 	return (
-		<>
+		<View style={{ height: '100%' }}>
 			<Avatar
 				user={user}
 				onPress={() => goToProfile()}
@@ -70,17 +70,17 @@ export const Home: FC = ({}) => {
 			<Text style={styles.dateText}>
 				{dateString({ date: currentDate, variant: 'full' })}
 			</Text>
-			<View style={{ flex: 1 }}>
+			<View style={{ flex: 1, marginBottom: 15 }}>
 				<EventsLegend
 					events={eventsList}
 					eventTypes={eventTypes}
 					variant='big'
 					header={false}
-					style={{ marginBottom: 15 }}
+					style={{ marginBottom: 15, maxHeight: '25%' }}
 				/>
-				<Feed />
+				<Feed style={{ maxHeight: '70%' }} />
 			</View>
-			<View style={styles.addEventButton}>
+			<View style={[styles.addEventButton]}>
 				<TouchableOpacity onPress={() => goToAddEvent()}>
 					<AntDesign
 						name='pluscircle'
@@ -89,7 +89,7 @@ export const Home: FC = ({}) => {
 					/>
 				</TouchableOpacity>
 			</View>
-		</>
+		</View>
 	)
 }
 
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
 	addEventButton: {
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'center',
-		marginBottom: 15
+		justifyContent: 'center'
 	}
 })

@@ -1,7 +1,7 @@
 import { RootRoutesParams } from '@/Entry'
 import { useCurrentRoute } from '@/hooks/useCurrentRoute'
 import { THEME } from '@/theme/theme'
-import { navigate, navigationRef } from '@/utils/rootNavigation'
+import { navigate } from '@/utils/rootNavigation'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { FC } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
@@ -23,7 +23,7 @@ export const BottomMenu: FC = () => {
 			id: 2,
 			name: 'home',
 			routeName: 'Home',
-			selectedFor: ['Home', 'AddEvent', 'Profile']
+			selectedFor: ['Home', 'AddEvent', 'Profile', 'Friends']
 		}
 	]
 

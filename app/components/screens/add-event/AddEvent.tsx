@@ -45,7 +45,9 @@ export const AddEvent: FC<
 	const [searchBoxValue, setSearchBoxValue] = useState('')
 
 	const filteredTypes = useMemo(() => {
-		return eventTypes.filter(type => type.eventType.includes(searchBoxValue))
+		return eventTypes.filter(type =>
+			type.eventType.toLowerCase().includes(searchBoxValue.toLowerCase())
+		)
 	}, [searchBoxValue, eventTypes])
 
 	const [checkedType, setCheckedType] = useState(-1)
@@ -63,7 +65,12 @@ export const AddEvent: FC<
 				},
 				token
 			)
-			.then(() => nav.navigate('MonthCalendar'))
+			.then(() => nav.navigate('Home'))
+	}
+
+	const onCreateEventTypeModalClose = () => {
+		updateEventTypes()
+		setCreateEventTypeModal(false)
 	}
 
 	const [isCreateEventTypeModal, setCreateEventTypeModal] = useState(false)
@@ -80,7 +87,7 @@ export const AddEvent: FC<
 			</UIModal>
 			<CreateEventTypeModal
 				show={isCreateEventTypeModal}
-				close={() => setCreateEventTypeModal(false)}
+				close={() => onCreateEventTypeModalClose()}
 			/>
 			<View style={styles.wrapper}>
 				<Text
@@ -93,20 +100,19 @@ export const AddEvent: FC<
 					/>
 					{currentDate.toDateString()}
 				</Text>
-				{filteredTypes.length ? (
+				{eventTypes.length ? (
 					<UIInput
 						onChangeText={setSearchBoxValue}
 						icon='search1'
 						value={searchBoxValue}
 					/>
 				) : null}
-				<ScrollView style={{ flex: 1, marginTop: 20 }}>
-					<EventsTypesList
-						types={filteredTypes}
-						checked={checkedType}
-						setChecked={setCheckedType}
-					/>
-				</ScrollView>
+				<EventsTypesList
+					types={filteredTypes}
+					checked={checkedType}
+					setChecked={setCheckedType}
+					style={{ flex: 1, marginVertical: 20 }}
+				/>
 				<UIButton
 					text='Create event type'
 					variant='secondary'

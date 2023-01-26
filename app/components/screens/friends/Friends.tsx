@@ -20,7 +20,10 @@ export const Friends: FC = () => {
 	}
 
 	const onAcceptInvite = (id: number) => {
-		api.friends.acceptInvite({ id }, token).then(() => updateInvites())
+		api.friends
+			.acceptInvite({ id }, token)
+			.then(() => updateInvites())
+			.then(() => updateFriends())
 	}
 	const onCancelInvite = (id: number) => {
 		api.friends.cancelInvite({ id }, token).then(() => updateInvites())
@@ -52,6 +55,7 @@ export const Friends: FC = () => {
 					invites={invites}
 					onAcceptInvite={onAcceptInvite}
 					onCancelInvite={onCancelInvite}
+					style={{ maxHeight: '35%' }}
 				/>
 			) : null}
 			<UIButton
@@ -59,7 +63,10 @@ export const Friends: FC = () => {
 				text='Add friend'
 				onPress={() => setAddFriendModal(true)}
 			/>
-			<FriendsList friends={friends} />
+			<FriendsList
+				friends={friends}
+				style={{ maxHeight: '50%' }}
+			/>
 		</>
 	)
 }
