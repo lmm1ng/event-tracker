@@ -26,7 +26,7 @@ export const FeedElement: FC<IFeedElementProps> = ({
 						size='small'
 						nameFirst={false}
 						subtext={fromNow(feedElement.createdAt)}
-						styles={{ marginBottom: 8 }}
+						style={{ marginBottom: 8 }}
 					/>
 					<View
 						style={{ flexDirection: 'row', justifyContent: 'space-between' }}

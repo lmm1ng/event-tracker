@@ -3,11 +3,10 @@ import { IPublicUser } from '@/models/user'
 import { THEME } from '@/theme/theme'
 import { hashColor } from '@/utils/hash-color'
 import { FC } from 'react'
-import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import { Pressable, StyleSheet, View, ViewProps } from 'react-native'
 
-interface IAvatarProps {
+interface IAvatarProps extends ViewProps {
 	onPress?: () => void
-	styles?: StyleProp<ViewStyle>
 	size?: 'normal' | 'big' | 'small'
 	user: IPublicUser | null
 	nameFirst?: boolean
@@ -16,7 +15,7 @@ interface IAvatarProps {
 
 export const Avatar: FC<IAvatarProps> = ({
 	onPress,
-	styles: outerStyles,
+	style: outerStyle,
 	size = 'normal',
 	user,
 	nameFirst = true,
@@ -24,60 +23,57 @@ export const Avatar: FC<IAvatarProps> = ({
 }) => {
 	return (
 		<>
-			{user ? (
-				<Pressable onPress={() => onPress && onPress()}>
-					<View style={[styles.wrapper, outerStyles]}>
-						{nameFirst ? (
-							<View style={{ marginRight: 10, maxWidth: '50%' }}>
-								<Text
-									numberOfLines={1}
-									ellipsizeMode='tail'
-									style={[styles[`${size}DisplayName`]]}
-								>
-									{user.displayedName}
-								</Text>
-								{subtext && <Text style={styles.subtext}>{subtext}</Text>}
-							</View>
-						) : null}
-						{/*TODO Avatar image*/}
-						<View
-							style={[
-								styles.imagePlaceholder,
-								styles[`${size}ImagePlaceholder`],
-								{ backgroundColor: hashColor(user.displayedName) }
-							]}
-						>
+			{user && (
+				<Pressable
+					onPress={() => onPress && onPress()}
+					style={[styles.wrapper, outerStyle]}
+				>
+					{nameFirst && (
+						<View style={{ marginRight: 10, flex: 1 }}>
 							<Text
-								style={[
-									styles.placeholderText,
-									styles[`${size}PlaceholderText`]
-								]}
+								numberOfLines={1}
+								ellipsizeMode='tail'
+								style={[styles[`${size}DisplayName`]]}
 							>
-								{user.displayedName[0].toUpperCase()}
+								{user.displayedName}
 							</Text>
+							{subtext && <Text style={styles.subtext}>{subtext}</Text>}
 						</View>
-						{!nameFirst ? (
-							<View style={{ marginLeft: 10, maxWidth: '50%' }}>
-								<Text
-									numberOfLines={1}
-									ellipsizeMode='tail'
-									style={[styles[`${size}DisplayName`]]}
-								>
-									{user.displayedName}
-								</Text>
-								{subtext && <Text style={styles.subtext}>{subtext}</Text>}
-							</View>
-						) : null}
+					)}
+					{/*TODO Avatar image*/}
+					<View
+						style={[
+							styles.imagePlaceholder,
+							styles[`${size}ImagePlaceholder`],
+							{ backgroundColor: hashColor(user.displayedName) }
+						]}
+					>
+						<Text
+							style={[styles.placeholderText, styles[`${size}PlaceholderText`]]}
+						>
+							{user.displayedName[0].toUpperCase()}
+						</Text>
 					</View>
+					{!nameFirst && (
+						<View style={{ marginLeft: 10, flex: 1 }}>
+							<Text
+								numberOfLines={1}
+								ellipsizeMode='tail'
+								style={[styles[`${size}DisplayName`]]}
+							>
+								{user.displayedName}
+							</Text>
+							{subtext && <Text style={styles.subtext}>{subtext}</Text>}
+						</View>
+					)}
 				</Pressable>
-			) : null}
+			)}
 		</>
 	)
 }
 
 const styles = StyleSheet.create({
 	wrapper: {
-		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center'
 	},

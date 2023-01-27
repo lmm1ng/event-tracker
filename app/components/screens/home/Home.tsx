@@ -60,9 +60,9 @@ export const Home: FC = ({}) => {
 			<Avatar
 				user={user}
 				onPress={() => goToProfile()}
-				styles={{
+				style={{
 					marginTop: 20,
-					alignSelf: 'flex-end'
+					alignSelf: 'flex-end',
 				}}
 			/>
 			<Text style={styles.dateText}>

@@ -18,10 +18,10 @@ export const UIInput: FC<IUIInputProps> = ({
 	value,
 	onChangeText,
 	icon = '',
-	style: outerStyles
+	style: outerStyle
 }) => {
 	return (
-		<View style={[styles.wrapper, outerStyles]}>
+		<View style={[styles.wrapper, outerStyle]}>
 			<Text style={styles.label}>{label}</Text>
 			<View style={styles.inputWrapper}>
 				{icon ? (

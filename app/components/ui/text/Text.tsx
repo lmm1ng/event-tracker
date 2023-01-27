@@ -9,13 +9,13 @@ interface ITextProps extends TextProps {
 
 export const Text: FC<ITextProps> = ({
 	bold = false,
-	style: outerStyles = {},
+	style: outerStyle = {},
 	children,
 	...props
 }) => {
 	return (
 		<NativeText
-			style={[styles.text, outerStyles]}
+			style={[styles.text, outerStyle]}
 			{...props}
 		>
 			{children}
