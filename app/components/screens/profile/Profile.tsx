@@ -51,7 +51,6 @@ export const Profile: FC = () => {
 const styles = StyleSheet.create({
 	wrapper: {
 		height: '100%',
-		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

@@ -1,8 +1,4 @@
-import {
-	IAuthResponse,
-	ILoginRequest,
-	IRegistrationRequest
-} from '@/api/auth/auth.models'
+import { IAuthResponse, ILoginRequest, IRegistrationRequest } from '@/api/auth/auth.models'
 import { Token, request } from '@/api/request'
 import { IUser } from '@/models/user'
 

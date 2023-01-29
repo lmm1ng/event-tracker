@@ -14,10 +14,7 @@ export const raiseError = ({ title = 'Error', message }: IRaiseToastArgs) => {
 	})
 }
 
-export const raiseSuccess = ({
-	title = 'Success',
-	message
-}: IRaiseToastArgs) => {
+export const raiseSuccess = ({ title = 'Success', message }: IRaiseToastArgs) => {
 	Toast.show({
 		type: 'success',
 		text1: title,

@@ -1,55 +1,33 @@
-import api from '@/api'
 import { EventsLegend } from '@/components/events-legend/EventsLegend'
 import { UICalendar } from '@/components/ui/calendar/UI-calendar'
-import { PeriodTypes } from '@/constants/periodTypes'
-import { AuthContext } from '@/hooks/useAuth'
+import { useEventTypes } from '@/hooks/queries/useEventTypes'
+import { useMonthEvents } from '@/hooks/queries/useEvents'
 import { IEvent } from '@/models/event'
-import { IEventType } from '@/models/eventType'
-import { formatDate, trimDate } from '@/utils/date-converter'
-import { hashColor } from '@/utils/hash-color'
+import { trimDate } from '@/utils/date-converter'
 import { useFocusEffect } from '@react-navigation/native'
-import { FC, useCallback, useContext, useMemo, useState } from 'react'
+import { FC, useCallback, useMemo, useState } from 'react'
 import { DateData } from 'react-native-calendars/src'
 
 export const MonthCalendar: FC = () => {
-	const { token } = useContext(AuthContext)
+	const [currentDate, setCurrentDate] = useState(new Date())
 
-	const [eventsList, setEventsList] = useState<IEvent[]>([])
-
-	const [eventTypes, setEventTypes] = useState<IEventType[]>([])
-
-	const updateEventTypes = () => {
-		return api.events.getEventTypes(token).then(res => {
-			setEventTypes(() => res.data)
-		})
-	}
-
-	const updateEventList = (date = new Date()) => {
-		return api.events
-			.getEvents(
-				{ date: formatDate(date), periodType: PeriodTypes.Month },
-				token
-			)
-			.then(res => {
-				setEventsList(() => res.data)
-			})
-	}
+	const { data: events, refetch: refetchEvents } = useMonthEvents(currentDate)
+	const { data: eventTypes } = useEventTypes()
 
 	useFocusEffect(
 		useCallback(() => {
-			updateEventList()
-			updateEventTypes()
+			refetchEvents()
 		}, [])
 	)
 
 	const onMonthChange = (date: DateData) => {
-		updateEventList(new Date(date.dateString))
+		setCurrentDate(new Date(date.dateString))
 	}
 
 	const markedDays = useMemo(() => {
-		return eventsList.reduce((acc, cur) => {
+		return events.reduce((acc, cur) => {
 			const date = trimDate(new Date(cur.date))
-			const dot = { key: cur.id, color: hashColor(cur.eventTypeId.toString()) }
+			const dot = { key: cur.id, color: cur.eventTypeColor }
 			if (acc[date]) {
 				acc[date].dots.push(dot)
 			} else {
@@ -60,7 +38,7 @@ export const MonthCalendar: FC = () => {
 
 			return acc
 		}, {} as Record<string, { dots: Array<{ key: IEvent['id']; color: string }> }>)
-	}, [eventsList])
+	}, [events])
 
 	return (
 		<>
@@ -76,7 +54,7 @@ export const MonthCalendar: FC = () => {
 				style={{ marginBottom: 20 }}
 			/>
 			<EventsLegend
-				events={eventsList}
+				events={events}
 				eventTypes={eventTypes}
 				showUniq
 			/>

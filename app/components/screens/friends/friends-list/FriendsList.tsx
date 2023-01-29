@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/avatar/Avatar'
 import { UICard } from '@/components/ui/card/UI-card'
+import { UILoader } from '@/components/ui/loader/UI-loader'
 import { Text } from '@/components/ui/text/Text'
 import { IPublicUser } from '@/models/user'
 import { THEME } from '@/theme/theme'
@@ -9,10 +10,12 @@ import { ScrollView, StyleSheet, View, ViewProps } from 'react-native'
 
 interface IFriendsListProps extends ViewProps {
 	friends: IPublicUser[]
+	isFriendsLoading: boolean
 }
 
 export const FriendsList: FC<IFriendsListProps> = ({
 	friends,
+	isFriendsLoading,
 	style: outerStyle
 }) => {
 	return (
@@ -21,25 +24,31 @@ export const FriendsList: FC<IFriendsListProps> = ({
 			style={outerStyle}
 		>
 			<ScrollView>
-				{friends.length ? (
-					friends.map(friend => (
-						<View
-							key={friend.id}
-							style={styles.friend}
-						>
-							<Avatar
-								user={friend}
-								nameFirst={false}
-							/>
-							<AntDesign
-								name='deleteuser'
-								size={25}
-								color={THEME.dangerColor}
-							/>
-						</View>
-					))
+				{!isFriendsLoading ? (
+					<>
+						{friends.length ? (
+							friends.map(friend => (
+								<View
+									key={friend.id}
+									style={styles.friend}
+								>
+									<Avatar
+										user={friend}
+										nameFirst={false}
+									/>
+									<AntDesign
+										name='deleteuser'
+										size={25}
+										color={THEME.dangerColor}
+									/>
+								</View>
+							))
+						) : (
+							<Text>No friends yet</Text>
+						)}
+					</>
 				) : (
-					<Text>No friends yet</Text>
+					<UILoader />
 				)}
 			</ScrollView>
 		</UICard>

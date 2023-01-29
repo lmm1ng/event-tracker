@@ -53,35 +53,27 @@ export const Registration: FC = () => {
 			<UIInput
 				label='Login'
 				value={registrationForm.username}
-				onChangeText={text =>
-					setRegistrationForm(prev => ({ ...prev, username: text }))
-				}
+				onChangeText={text => setRegistrationForm(prev => ({ ...prev, username: text }))}
 				style={{ marginBottom: 10 }}
 			/>
 			<UIInput
 				label='Display name'
 				value={registrationForm.displayedName}
-				onChangeText={text =>
-					setRegistrationForm(prev => ({ ...prev, displayedName: text }))
-				}
+				onChangeText={text => setRegistrationForm(prev => ({ ...prev, displayedName: text }))}
 				style={{ marginBottom: 10 }}
 			/>
 			<UIInput
 				label='Password'
 				password
 				value={registrationForm.password}
-				onChangeText={text =>
-					setRegistrationForm(prev => ({ ...prev, password: text }))
-				}
+				onChangeText={text => setRegistrationForm(prev => ({ ...prev, password: text }))}
 				style={{ marginBottom: 10 }}
 			/>
 			<UIInput
 				label='Repeat password'
 				password
 				value={registrationForm.repeatPassword}
-				onChangeText={text =>
-					setRegistrationForm(prev => ({ ...prev, repeatPassword: text }))
-				}
+				onChangeText={text => setRegistrationForm(prev => ({ ...prev, repeatPassword: text }))}
 				style={{ marginBottom: 30 }}
 			/>
 			<UIButton

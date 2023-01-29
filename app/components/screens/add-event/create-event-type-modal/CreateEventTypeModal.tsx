@@ -10,10 +10,7 @@ interface ICreateEventTypeModalProps {
 	close: () => void
 }
 
-export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({
-	show,
-	close
-}) => {
+export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({ show, close }) => {
 	const { token } = useContext(AuthContext)
 
 	const [isTypeVisible, setTypeVisible] = useState(true)
@@ -22,10 +19,7 @@ export const CreateEventTypeModal: FC<ICreateEventTypeModalProps> = ({
 	const submitModal = () => {
 		if (eventTypeName !== '') {
 			api.events
-				.createEventType(
-					{ name: eventTypeName, isVisible: isTypeVisible },
-					token
-				)
+				.createEventType({ name: eventTypeName, isVisible: isTypeVisible }, token)
 				.then(() => closeModal())
 		}
 	}

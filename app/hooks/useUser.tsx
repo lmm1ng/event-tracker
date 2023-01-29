@@ -16,9 +16,5 @@ export const UserContext = createContext<IInitialContext>(initialContext)
 export const UserContextProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState<IUser | null>(null)
 
-	return (
-		<UserContext.Provider value={{ user, setUser }}>
-			{children}
-		</UserContext.Provider>
-	)
+	return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>
 }

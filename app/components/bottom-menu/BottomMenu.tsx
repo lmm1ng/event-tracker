@@ -63,11 +63,7 @@ export const BottomMenu: FC = () => {
 						// @ts-ignore
 						name={el.name}
 						size={27}
-						color={
-							el.selectedFor.includes(currentRoute)
-								? THEME.primaryColor
-								: THEME.textColor
-						}
+						color={el.selectedFor.includes(currentRoute) ? THEME.primaryColor : THEME.textColor}
 					/>
 				</TouchableOpacity>
 			))}
@@ -77,7 +73,6 @@ export const BottomMenu: FC = () => {
 
 const styles = StyleSheet.create({
 	wrapper: {
-		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		height: 60,

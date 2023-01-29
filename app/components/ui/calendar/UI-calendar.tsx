@@ -1,9 +1,6 @@
 import { THEME } from '@/theme/theme'
 import { FC } from 'react'
-import {
-	CalendarProps,
-	Calendar as NativeCalender
-} from 'react-native-calendars/src'
+import { CalendarProps, Calendar as NativeCalender } from 'react-native-calendars/src'
 
 export const UICalendar: FC<CalendarProps> = props => {
 	return (

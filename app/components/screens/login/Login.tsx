@@ -50,18 +50,14 @@ export const Login: FC = () => {
 			<UIInput
 				label='Login'
 				value={loginForm.username}
-				onChangeText={text =>
-					setLoginForm(prev => ({ ...prev, username: text }))
-				}
+				onChangeText={text => setLoginForm(prev => ({ ...prev, username: text }))}
 				style={{ marginBottom: 10 }}
 			/>
 			<UIInput
 				label='Password'
 				password
 				value={loginForm.password}
-				onChangeText={text =>
-					setLoginForm(prev => ({ ...prev, password: text }))
-				}
+				onChangeText={text => setLoginForm(prev => ({ ...prev, password: text }))}
 				style={{ marginBottom: 30 }}
 			/>
 			<UIButton

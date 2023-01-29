@@ -3,9 +3,9 @@ import { AddFriendModal } from '@/components/screens/friends/add-friend-modal/Ad
 import { FriendsList } from '@/components/screens/friends/friends-list/FriendsList'
 import { InvitesList } from '@/components/screens/friends/invites-list/InvitesList'
 import { UIButton } from '@/components/ui/button/UI-button'
+import { useFriends } from '@/hooks/queries/useFriends'
+import { useInvites } from '@/hooks/queries/useInvites'
 import { AuthContext } from '@/hooks/useAuth'
-import { IInvite } from '@/models/invite'
-import { IPublicUser } from '@/models/user'
 import { useFocusEffect } from '@react-navigation/native'
 import { FC, useCallback, useContext, useState } from 'react'
 import { StyleSheet } from 'react-native'
@@ -13,32 +13,23 @@ import { StyleSheet } from 'react-native'
 export const Friends: FC = () => {
 	const { token } = useContext(AuthContext)
 
-	const [invites, setInvites] = useState<IInvite[]>([])
-
-	const updateInvites = () => {
-		return api.friends.getInvites(token).then(res => setInvites(res.data))
-	}
+	const { data: invites, refetch: refetchInvites } = useInvites()
+	const { data: friends, isLoading: isFriendsLoading, refetch: refetchFriends } = useFriends()
 
 	const onAcceptInvite = (id: number) => {
 		api.friends
 			.acceptInvite({ id }, token)
-			.then(() => updateInvites())
-			.then(() => updateFriends())
+			.then(() => refetchInvites())
+			.then(() => refetchFriends())
 	}
 	const onCancelInvite = (id: number) => {
-		api.friends.cancelInvite({ id }, token).then(() => updateInvites())
-	}
-
-	const [friends, setFriends] = useState<IPublicUser[]>([])
-
-	const updateFriends = () => {
-		return api.friends.getFriends(token).then(res => setFriends(res.data))
+		api.friends.cancelInvite({ id }, token).then(() => refetchInvites())
 	}
 
 	useFocusEffect(
 		useCallback(() => {
-			updateInvites()
-			updateFriends()
+			refetchInvites()
+			refetchFriends()
 		}, [])
 	)
 
@@ -65,6 +56,7 @@ export const Friends: FC = () => {
 			/>
 			<FriendsList
 				friends={friends}
+				isFriendsLoading={isFriendsLoading}
 				style={{ maxHeight: '50%' }}
 			/>
 		</>

@@ -4,13 +4,7 @@ import { IInvite } from '@/models/invite'
 import { THEME } from '@/theme/theme'
 import { Feather } from '@expo/vector-icons'
 import { FC } from 'react'
-import {
-	Pressable,
-	ScrollView,
-	StyleSheet,
-	View,
-	ViewProps
-} from 'react-native'
+import { Pressable, ScrollView, StyleSheet, View, ViewProps } from 'react-native'
 
 interface IInvitesListProps extends ViewProps {
 	invites: IInvite[]

@@ -11,8 +11,7 @@ function M(d) {
 
 function X(d) {
 	for (var _ = Array(d.length >> 2), m = 0; m < _.length; m++) _[m] = 0
-	for (m = 0; m < 8 * d.length; m += 8)
-		_[m >> 5] |= (255 & d.charCodeAt(m / 8)) << m % 32
+	for (m = 0; m < 8 * d.length; m += 8) _[m >> 5] |= (255 & d.charCodeAt(m / 8)) << m % 32
 	return _
 }
 
@@ -54,15 +53,7 @@ function Y(d, _) {
 																			r,
 																			(i = md5_ff(
 																				i,
-																				(m = md5_ff(
-																					m,
-																					f,
-																					r,
-																					i,
-																					d[n + 0],
-																					7,
-																					-680876936
-																				)),
+																				(m = md5_ff(m, f, r, i, d[n + 0], 7, -680876936)),
 																				f,
 																				r,
 																				d[n + 1],
@@ -85,15 +76,7 @@ function Y(d, _) {
 																		r,
 																		(i = md5_ff(
 																			i,
-																			(m = md5_ff(
-																				m,
-																				f,
-																				r,
-																				i,
-																				d[n + 4],
-																				7,
-																				-176418897
-																			)),
+																			(m = md5_ff(m, f, r, i, d[n + 4], 7, -176418897)),
 																			f,
 																			r,
 																			d[n + 5],
@@ -116,15 +99,7 @@ function Y(d, _) {
 																	r,
 																	(i = md5_ff(
 																		i,
-																		(m = md5_ff(
-																			m,
-																			f,
-																			r,
-																			i,
-																			d[n + 8],
-																			7,
-																			1770035416
-																		)),
+																		(m = md5_ff(m, f, r, i, d[n + 8], 7, 1770035416)),
 																		f,
 																		r,
 																		d[n + 9],
@@ -147,15 +122,7 @@ function Y(d, _) {
 																r,
 																(i = md5_ff(
 																	i,
-																	(m = md5_ff(
-																		m,
-																		f,
-																		r,
-																		i,
-																		d[n + 12],
-																		7,
-																		1804603682
-																	)),
+																	(m = md5_ff(m, f, r, i, d[n + 12], 7, 1804603682)),
 																	f,
 																	r,
 																	d[n + 13],
@@ -178,15 +145,7 @@ function Y(d, _) {
 															r,
 															(i = md5_gg(
 																i,
-																(m = md5_gg(
-																	m,
-																	f,
-																	r,
-																	i,
-																	d[n + 1],
-																	5,
-																	-165796510
-																)),
+																(m = md5_gg(m, f, r, i, d[n + 1], 5, -165796510)),
 																f,
 																r,
 																d[n + 6],

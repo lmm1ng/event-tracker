@@ -1,9 +1,5 @@
-export interface IEventType {
-	createdAt: string
-	deletedAt: string
-	eventType: string
-	id: number
-	isVisible: boolean
-	updatedAt: string
-	userId: number
+import { IEventTypeResponse } from '@/api/events/events.models'
+
+export interface IEventType extends IEventTypeResponse {
+	color: string
 }

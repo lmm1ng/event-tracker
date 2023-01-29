@@ -1,7 +1,7 @@
 import { UICheckbox } from '@/components/ui/checkbox/UI-checkbox'
+import { UIDot } from '@/components/ui/dot/UI-dot'
 import { Text } from '@/components/ui/text/Text'
 import { IEventType } from '@/models/eventType'
-import { hashColor } from '@/utils/hash-color'
 import { FC } from 'react'
 import { StyleSheet, View, ViewProps } from 'react-native'
 
@@ -24,11 +24,10 @@ export const EventTypesListElement: FC<IEventTypesListElementProps> = ({
 				onToggle={() => setChecked(eventType.id)}
 				style={styles.checkbox}
 			/>
-			<View
-				style={[
-					styles.dot,
-					{ backgroundColor: hashColor(eventType.id.toString()) }
-				]}
+			<UIDot
+				size={10}
+				color={eventType.color}
+				style={{ marginRight: 10 }}
 			/>
 			<Text>{eventType.eventType}</Text>
 		</View>
@@ -36,12 +35,6 @@ export const EventTypesListElement: FC<IEventTypesListElementProps> = ({
 }
 
 const styles = StyleSheet.create({
-	dot: {
-		width: 10,
-		height: 10,
-		borderRadius: 10,
-		marginRight: 5
-	},
 	checkbox: {
 		marginRight: 10
 	}

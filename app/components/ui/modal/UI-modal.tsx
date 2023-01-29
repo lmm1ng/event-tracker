@@ -3,14 +3,7 @@ import { UICard } from '@/components/ui/card/UI-card'
 import { Text } from '@/components/ui/text/Text'
 import { THEME } from '@/theme/theme'
 import { FC } from 'react'
-import {
-	GestureResponderEvent,
-	Modal,
-	ModalProps,
-	Pressable,
-	StyleSheet,
-	View
-} from 'react-native'
+import { GestureResponderEvent, Modal, ModalProps, Pressable, StyleSheet, View } from 'react-native'
 
 interface IUIModalProps extends ModalProps {
 	show: boolean

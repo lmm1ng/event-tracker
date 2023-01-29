@@ -7,21 +7,14 @@ import { UICalendar } from '@/components/ui/calendar/UI-calendar'
 import { UIInput } from '@/components/ui/input/UI-input'
 import { UIModal } from '@/components/ui/modal/UI-modal'
 import { Text } from '@/components/ui/text/Text'
+import { useEventTypes } from '@/hooks/queries/useEventTypes'
 import { AuthContext } from '@/hooks/useAuth'
 import { useTypedNavigation } from '@/hooks/useTypedNavigation'
-import { IEventType } from '@/models/eventType'
 import { formatDate, trimDate } from '@/utils/date-converter'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { useFocusEffect } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import {
-	FC,
-	useCallback,
-	useContext,
-	useEffect,
-	useMemo,
-	useState
-} from 'react'
+import { FC, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { DateData } from 'react-native-calendars/src'
 
@@ -40,11 +33,7 @@ export const AddEvent: FC<
 		setCurrentDateModal(false)
 	}
 
-	const [eventTypes, setEventTypes] = useState<IEventType[]>([])
-
-	const updateEventTypes = () => {
-		return api.events.getEventTypes(token).then(res => setEventTypes(res.data))
-	}
+	const { data: eventTypes, refetch: refetchEventTypes } = useEventTypes()
 
 	const [searchBoxValue, setSearchBoxValue] = useState('')
 
@@ -55,10 +44,6 @@ export const AddEvent: FC<
 	}, [searchBoxValue, eventTypes])
 
 	const [checkedType, setCheckedType] = useState(-1)
-
-	useEffect(() => {
-		updateEventTypes()
-	}, [])
 
 	useEffect(() => {
 		setCheckedType(-1)
@@ -86,7 +71,7 @@ export const AddEvent: FC<
 	}
 
 	const onCreateEventTypeModalClose = () => {
-		updateEventTypes()
+		refetchEventTypes()
 		setCreateEventTypeModal(false)
 	}
 
@@ -148,7 +133,6 @@ export const AddEvent: FC<
 
 const styles = StyleSheet.create({
 	wrapper: {
-		display: 'flex',
 		height: '100%'
 	},
 	dateText: {

@@ -1,14 +1,8 @@
 import api from '@/api'
 import { UserContext } from '@/hooks/useUser'
+import { queryClient } from '@/queryClient'
 import { deleteKey, get, save } from '@/utils/secure-store'
-import {
-	ReactNode,
-	createContext,
-	useContext,
-	useEffect,
-	useMemo,
-	useState
-} from 'react'
+import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 interface IInitialContext {
 	isAuth: boolean
@@ -56,12 +50,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
 	const logout = () => {
 		setToken(null)
+		queryClient.clear()
 		deleteKey('token')
 	}
 
 	return (
-		<AuthContext.Provider value={{ isAuth, login, token, logout }}>
-			{children}
-		</AuthContext.Provider>
+		<AuthContext.Provider value={{ isAuth, login, token, logout }}>{children}</AuthContext.Provider>
 	)
 }

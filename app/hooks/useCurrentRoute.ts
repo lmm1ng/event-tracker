@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react'
 export const useCurrentRoute = () => {
 	const [currentRoute, setCurrentRoute] = useState('')
 
-	const setRouteCallback = (
-		ev: NavigationContainerEventMap['__unsafe_action__']
-	) => {
+	const setRouteCallback = (ev: NavigationContainerEventMap['__unsafe_action__']) => {
 		if (ev?.data?.action?.type === 'NAVIGATE') {
 			// @ts-ignore
 			setCurrentRoute(ev?.data?.action?.payload?.name || '')
@@ -19,8 +17,7 @@ export const useCurrentRoute = () => {
 
 		navigationRef.addListener('__unsafe_action__', setRouteCallback)
 
-		return () =>
-			navigationRef.removeListener('__unsafe_action__', setRouteCallback)
+		return () => navigationRef.removeListener('__unsafe_action__', setRouteCallback)
 	})
 
 	return currentRoute

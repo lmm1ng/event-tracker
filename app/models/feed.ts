@@ -1,8 +1,5 @@
-export interface IFeedElement {
-	createdAt: string
-	date: string
-	eventType: string
-	eventTypeId: number
-	eventId: number
-	userId: number
+import { IFeedElementResponse } from '@/api/events/events.models'
+
+export interface IFeedElement extends IFeedElementResponse {
+	eventTypeColor: string
 }

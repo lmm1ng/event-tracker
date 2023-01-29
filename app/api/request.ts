@@ -1,5 +1,5 @@
-import { raiseError } from '@/utils/toast'
 import { isLoginScreenFocused, navigate } from '@/utils/rootNavigation'
+import { raiseError } from '@/utils/toast'
 import type { RawAxiosRequestConfig } from 'axios'
 import axios, { AxiosError } from 'axios'
 import Constants from 'expo-constants'
@@ -39,10 +39,7 @@ axios.interceptors.response.use(
 	}
 )
 
-export const request = <T>({
-	token = null,
-	...config
-}: IRequestProps): Promise<IResponse<T>> => {
+export const request = <T>({ token = null, ...config }: IRequestProps): Promise<IResponse<T>> => {
 	return axios.request<never, IResponse<T>>({
 		...config,
 		url: (Constants.expoConfig?.extra?.apiUrl || '') + config.url,

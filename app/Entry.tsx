@@ -9,11 +9,7 @@ import { Registration } from '@/components/screens/registration/Registration'
 import { AuthContext } from '@/hooks/useAuth'
 import { THEME } from '@/theme/theme'
 import { navigationRef } from '@/utils/rootNavigation'
-import {
-	DefaultTheme,
-	NavigationContainer,
-	Theme
-} from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useContext } from 'react'
 import { StyleSheet, View } from 'react-native'

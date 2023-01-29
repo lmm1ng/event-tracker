@@ -1,16 +1,16 @@
 import {
 	ICreateEventRequest,
 	ICreateEventTypeRequest,
+	IEventResponse,
+	IEventTypeResponse,
+	IFeedElementResponse,
 	IGetEventsRequest
 } from '@/api/events/events.models'
 import { Token, request } from '@/api/request'
-import { IEvent } from '@/models/event'
-import { IEventType } from '@/models/eventType'
-import { IFeedElement } from '@/models/feed'
 
 export default {
 	getEvents(data: IGetEventsRequest, token: Token) {
-		return request<IEvent[]>({
+		return request<IEventResponse[]>({
 			url: 'api/v1/events/list',
 			method: 'POST',
 			token,
@@ -34,14 +34,14 @@ export default {
 		})
 	},
 	getEventTypes(token: Token) {
-		return request<IEventType[]>({
+		return request<IEventTypeResponse[]>({
 			url: 'api/v1/events/types',
 			method: 'GET',
 			token
 		})
 	},
 	getFeed(token: Token) {
-		return request<IFeedElement[]>({
+		return request<IFeedElementResponse[]>({
 			url: 'api/v1/events/feed',
 			method: 'GET',
 			token

@@ -2,14 +2,7 @@ import { Text } from '@/components/ui/text/Text'
 import { THEME } from '@/theme/theme'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import { FC } from 'react'
-import {
-	Pressable,
-	StyleProp,
-	StyleSheet,
-	View,
-	ViewProps,
-	ViewStyle
-} from 'react-native'
+import { Pressable, StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native'
 
 interface IUICheckboxProps extends ViewProps {
 	value: boolean

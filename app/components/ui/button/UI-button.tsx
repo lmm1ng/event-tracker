@@ -1,13 +1,7 @@
 import { Text } from '@/components/ui/text/Text'
 import { THEME } from '@/theme/theme'
 import { FC } from 'react'
-import {
-	StyleProp,
-	StyleSheet,
-	TouchableHighlight,
-	View,
-	ViewStyle
-} from 'react-native'
+import { StyleProp, StyleSheet, TouchableHighlight, View, ViewStyle } from 'react-native'
 
 interface IUIButtonProps {
 	text: string
@@ -29,13 +23,7 @@ export const UIButton: FC<IUIButtonProps> = ({
 			onPress={onPress}
 			style={[{ width: '100%' }, outerStyle]}
 		>
-			<View
-				style={[
-					styles.button,
-					styles[variant],
-					disabled && styles.primaryDisabled
-				]}
-			>
+			<View style={[styles.button, styles[variant], disabled && styles.primaryDisabled]}>
 				<Text>{text}</Text>
 			</View>
 		</TouchableHighlight>
@@ -47,7 +35,6 @@ const styles = StyleSheet.create({
 		width: '100%',
 		borderRadius: THEME.borderRadius,
 		height: 40,
-		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

@@ -29,7 +29,7 @@ export const Avatar: FC<IAvatarProps> = ({
 					style={[styles.wrapper, outerStyle]}
 				>
 					{nameFirst && (
-						<View style={{ marginRight: 10, flex: 1 }}>
+						<View style={{ marginRight: 10 }}>
 							<Text
 								numberOfLines={1}
 								ellipsizeMode='tail'
@@ -48,14 +48,12 @@ export const Avatar: FC<IAvatarProps> = ({
 							{ backgroundColor: hashColor(user.displayedName) }
 						]}
 					>
-						<Text
-							style={[styles.placeholderText, styles[`${size}PlaceholderText`]]}
-						>
+						<Text style={[styles.placeholderText, styles[`${size}PlaceholderText`]]}>
 							{user.displayedName[0].toUpperCase()}
 						</Text>
 					</View>
 					{!nameFirst && (
-						<View style={{ marginLeft: 10, flex: 1 }}>
+						<View style={{ marginLeft: 10 }}>
 							<Text
 								numberOfLines={1}
 								ellipsizeMode='tail'
@@ -93,7 +91,6 @@ const styles = StyleSheet.create({
 	},
 
 	imagePlaceholder: {
-		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
